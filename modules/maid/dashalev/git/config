@@ -1,0 +1,9 @@
+[init]
+	defaultBranch = "master"
+
+[submodule]
+  recurse = true
+
+[user]
+	email = "44515019+da-shalev@users.noreply.github.com"
+	name = "da-shalev"

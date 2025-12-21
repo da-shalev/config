@@ -1,0 +1,57 @@
+set fish_greeting
+set -x fish_prompt_pwd_dir_length 50
+bind --erase --all
+history merge
+
+function fish_mode_prompt
+end
+
+fish_vi_key_bindings
+fish_config theme choose fishsticks
+
+bind -M default \cf 'cd_fzf "fzf-media"'
+bind -M insert \cf 'cd_fzf "fzf-media"'
+bind -M visual \cf 'cd_fzf "fzf-media"'
+
+bind -M default \cn 'cd_fzf "fzf-search"'
+bind -M insert \cn 'cd_fzf "fzf-search"'
+bind -M visual \cn 'cd_fzf "fzf-search"'
+
+function clear
+  command clear
+  repaint
+end
+
+function repaint
+  commandline -f repaint
+end
+
+bind -M default \cg 'tms; repaint'
+bind -M insert \cg 'tms; repaint'
+bind -M visual \cg 'tms; repaint'
+bind -M default \ce '$EDITOR .; repaint'
+bind -M insert \ce '$EDITOR .; repaint'
+bind -M visual \ce '$EDITOR .; repaint'
+
+bind -M insert \cs 'clear'
+bind -M visual \cs 'clear'
+bind -M default \cs 'clear'
+
+function cd_fzf
+  set target ($argv[1])
+  if test -n "$target"
+    cd "$target"
+  end
+
+  clear
+end
+
+function fish_prompt
+  printf '%s%s%s %s%s%s\n%s ' \
+    (set_color "$SHELL_COLOR")(whoami) \
+    (set_color "brwhite")@ \
+    (set_color "bryellow")(hostname) \
+    (set_color "brgreen") (prompt_pwd) \
+    (set_color "brred"; fish_git_prompt) \
+    $SHELL_ICON
+end
