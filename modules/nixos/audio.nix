@@ -1,26 +1,5 @@
-{ pkgs, lib, ... }:
-# universal audio configuration for all of my unique devices I use day to day
+{ lib, ... }:
 {
-  environment = {
-    defaultPackages = [ ];
-
-    # fixes alsa configuration issue for my Solo Scarlett 4
-    # possibly fixed in the latest version but I have been gassed too many times
-    variables = {
-      # ALSA_CONFIG_UCM2 = "${
-      #   pkgs.stable.alsa-ucm-conf.overrideAttrs (old: {
-      #     src = (import ../../npins).alsa-ucm-conf;
-      #   })
-      # }/share/alsa/ucm2";
-    };
-
-    sessionVariables = {
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
-
-    localBinInPath = true;
-  };
-
   services = {
     pulseaudio.enable = lib.mkForce false;
     pipewire = {

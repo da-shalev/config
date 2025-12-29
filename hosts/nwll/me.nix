@@ -23,6 +23,8 @@ in
     package = pkgs.fishMinimal;
   };
 
+  rebuild.owner = "dashalev";
+
   programs.hyprland = {
     enable = true;
     package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -96,7 +98,8 @@ in
         hyprland = {
           enable = true;
           extraConfig = ''
-            monitor=DP-1,highres@highrr,auto,1
+            monitor=DP-1,highres@highrr,auto,1,bitdepth,10
+
             env=GSK_RENDERER,ngl
           '';
         };

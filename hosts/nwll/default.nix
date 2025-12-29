@@ -1,4 +1,4 @@
-import ../. [
+import ../. "nwll" [
   ./disko.nix
   ./configuration.nix
   ./hardware.nix

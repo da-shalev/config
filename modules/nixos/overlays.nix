@@ -4,6 +4,13 @@
   ...
 }:
 {
+  environment = {
+    localBinInPath = true;
+    sessionVariables = {
+      NIXPKGS_ALLOW_UNFREE = "1";
+    };
+  };
+
   maid.sharedModules = [
     ../maid/shell
     ../maid/wayland

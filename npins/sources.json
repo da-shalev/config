@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1751c305c20d48fd84328b8cb939710ee0ee4f1f",
-      "url": "https://github.com/nix-community/NUR/archive/1751c305c20d48fd84328b8cb939710ee0ee4f1f.tar.gz",
-      "hash": "sha256-srwcdeQ+of06aaI4HO9v2hxYS5YmY5odrcADGrcHaGk="
+      "revision": "d3e9bcacd0e944339ade2cbffa4f6d6f98e366d6",
+      "url": "https://github.com/nix-community/NUR/archive/d3e9bcacd0e944339ade2cbffa4f6d6f98e366d6.tar.gz",
+      "hash": "sha256-OgpqEjRWxWXebGC7sbBZLaVdQLM9BAtl/UpUhosivlI="
     },
     "alsa-ucm-conf": {
       "type": "Git",
@@ -100,9 +100,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "3e2499d5539c16d0d173ba53552a4ff8547f4539",
-      "url": "https://github.com/NixOS/nixpkgs/archive/3e2499d5539c16d0d173ba53552a4ff8547f4539.tar.gz",
-      "hash": "sha256-QEhk0eXgyIqTpJ/ehZKg9IKS7EtlWxF3N7DXy42zPfU="
+      "revision": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
+      "url": "https://github.com/NixOS/nixpkgs/archive/c0b0e0fddf73fd517c3471e546c0df87a42d53f4.tar.gz",
+      "hash": "sha256-coBu0ONtFzlwwVBzmjacUQwj3G+lybcZ1oeNSQkgC0M="
     },
     "nixpkgs-stable": {
       "type": "Git",

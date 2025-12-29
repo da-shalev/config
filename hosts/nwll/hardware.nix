@@ -10,6 +10,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
     initrd.systemd.enable = true;
     tmp.cleanOnBoot = true;
