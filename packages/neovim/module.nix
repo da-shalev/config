@@ -1,4 +1,5 @@
-pkgs: {
+{ pkgs, lib, ... }:
+{
   appName = "nvim";
   desktopEntry = false;
 
@@ -11,10 +12,26 @@ pkgs: {
 
   initLua = builtins.readFile ./init.lua;
 
-  plugins = {
+  plugins =
+let
+sources = lib.fileset.unions [
+              ./plugin
+              ./after
+              ./ftplugin
+            ];
+    in
+  {
+    dev.main = {
+      pure =
+        (
+          lib.fileset.toSource {
+            root = ./.;
+            fileset = sources;
+          }
+        );
+      impure = sources;
+    };
     start = with pkgs.vimPlugins; [
-      ./.
-
       gruvbox-nvim
       # lualine-nvim
       fzf-lua

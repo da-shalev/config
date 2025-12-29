@@ -1,15 +1,11 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  inputs,
-  ...
-}:
-{
+  environment.etc.nixpkgs.source = pkgs.path;
+
   nix = {
-    package = pkgs.nixVersions.latest;
-    registry.nixpkgs.flake = inputs.nixpkgs;
     channel.enable = false;
+    nixPath = [ "nixpkgs=/etc/nixpkgs" ];
     settings = {
-      nix-path = "nixpkgs=flake:nixpkgs";
       substituters = [
         "https://nix-community.cachix.org"
       ];
@@ -31,6 +27,13 @@
       use-cgroups = true;
       auto-allocate-uids = true;
       warn-dirty = false;
+    };
+
+    registry.nixpkgs.to = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = (import ../../npins).nixpkgs.revision;
     };
   };
 }

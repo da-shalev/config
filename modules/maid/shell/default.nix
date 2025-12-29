@@ -92,7 +92,7 @@
       // config.user_dirs;
 
       variables = {
-        SHELL_COLOR = "${config.shell.colour}";
+        SHELL_COLOR = "${config.shell.color}";
         SHELL_ICON = "${config.shell.icon}";
         PATH = lib.concatStringsSep ":" (config.shell.paths ++ [ "$PATH" ]);
       };

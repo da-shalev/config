@@ -1,14 +1,13 @@
 let
   sources = import ../npins;
   lib = import "${sources.nixpkgs}/lib";
-  nixpkgsConfiguration = {
-    allowUnfree = true;
-  };
 in
 import sources.nixpkgs {
-  config = nixpkgsConfiguration;
+  config = {
+    allowUnfree = true;
+  };
 
   overlays = [
-    (import ./overlay.nix lib nixpkgsConfiguration)
+    (import ./overlay.nix lib)
   ];
 }

@@ -1,6 +1,6 @@
 local fzf = require('fzf-lua')
 
-local opts = {
+fzf.setup({
   winopts = {
     preview = {
       default = 'builtin',
@@ -24,9 +24,7 @@ local opts = {
     hidden = true,
     no_ignore = false,
   },
-}
-
-fzf.setup(opts)
+})
 
 vim.keymap.set('n', '<leader>f', function()
   fzf.files()

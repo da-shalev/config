@@ -1,11 +1,11 @@
-{ lib, nixpkgsConfiguration, ... }:
+lib:
 let
   sources = import ../npins;
 
   overlayAuto =
     final: prev:
     (
-      lib.readDir ./.
+      builtins.readDir ./.
       |> lib.filterAttrs (_: value: value == "directory")
       |> lib.mapAttrs (name: _: final.callPackage ./${name} { })
     );
@@ -14,7 +14,9 @@ let
     nix = prev.nix;
     stable = (import sources.nixpkgs-stable) {
       inherit (final) system;
-      config = nixpkgsConfiguration;
+      config = {
+        allowUnfree = true;
+      };
     };
     nur = (import sources.NUR) {
       pkgs = prev;

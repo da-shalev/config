@@ -4,5 +4,4 @@ import ../. [
   ./hardware.nix
   ./me.nix
   ./passthrough.nix
-  ./nixcfg.nix
 ]

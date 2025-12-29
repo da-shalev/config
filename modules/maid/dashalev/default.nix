@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ./hyprland
+  ];
+
   dconf.settings = {
     "/org/gnome/desktop/interface/color-scheme" = "prefer-dark";
     "/org/gnome/desktop/wm/preferences/button-layout" = "";
@@ -23,9 +27,9 @@
     XDG_VIDEOS_DIR = lib.mkDefault "$HOME/media/vid";
     XDG_PICTURES_DIR = lib.mkDefault "$HOME/media/pix";
     XDG_DOWNLOAD_DIR = lib.mkDefault "$HOME/media/dow";
+    XDG_PUBLICSHARE_DIR = lib.mkDefault "$HOME/media/projects";
 
     XDG_DESKTOP_DIR = lib.mkDefault "$HOME/";
-    XDG_PUBLICSHARE_DIR = lib.mkDefault "$HOME/";
     XDG_TEMPLATES_DIR = lib.mkDefault "$HOME/";
   };
 
@@ -57,6 +61,7 @@
     "tms/config.toml".source = ./tms.toml;
     "mpv/mpv.conf".source = ./mpv.conf;
     "fd/ignore".source = ./fd/ignore;
+    "looking-glass/client.ini".source = ./looking-glass/client.ini;
   };
 
   dirs = [ "$XDG_STATE_HOME/bash" ];
@@ -103,9 +108,13 @@
       ffmpeg-full
       yt-dlp
       wget
+
       unzip
       p7zip
       zip
+      rar
+      unrar
+
       tree
       vimv
       onefetch
@@ -143,10 +152,17 @@
       openssl
       maven
 
-      fzf-media
-      fzf-search
       pulsemixer
       bluetuith
+
+      usbutils
+      pciutils
+      file
+      libva-utils
+
+      # custom
+      fzf-media
+      fzf-search
     ]
     ++ lib.optionals config.hyprland.enable [
       nautilus
@@ -162,7 +178,6 @@
       qbittorrent
       nicotine-plus
 
-      tutanota-desktop
       heroic
       nur.repos.forkprince.helium-nightly
 

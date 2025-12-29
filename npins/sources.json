@@ -1,5 +1,18 @@
 {
   "pins": {
+    "Hyprland": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hyprwm",
+        "repo": "Hyprland"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6a055fc747a5a899b97f9b4c1d1a52229a805b1e",
+      "url": "https://github.com/hyprwm/Hyprland/archive/6a055fc747a5a899b97f9b4c1d1a52229a805b1e.tar.gz",
+      "hash": "sha256-mGk+mk/miObjivy+6qMqQm+Jyl8R7t6B/1SaiBkUUyY="
+    },
     "NUR": {
       "type": "Git",
       "repository": {
@@ -9,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "51d3347e63a34996f35275c77372eeafaa11e0ed",
-      "url": "https://github.com/nix-community/NUR/archive/51d3347e63a34996f35275c77372eeafaa11e0ed.tar.gz",
-      "hash": "1vqn17x2020cdrpnlq7hfbywq7l196f1r6b65knsgx2i7rjqhii8"
+      "revision": "1751c305c20d48fd84328b8cb939710ee0ee4f1f",
+      "url": "https://github.com/nix-community/NUR/archive/1751c305c20d48fd84328b8cb939710ee0ee4f1f.tar.gz",
+      "hash": "sha256-srwcdeQ+of06aaI4HO9v2hxYS5YmY5odrcADGrcHaGk="
     },
     "alsa-ucm-conf": {
       "type": "Git",
@@ -24,7 +37,7 @@
       "submodules": false,
       "revision": "765c952c7965001a65dc58b593e313f644bd9f6b",
       "url": "https://github.com/geoffreybennett/alsa-ucm-conf/archive/765c952c7965001a65dc58b593e313f644bd9f6b.tar.gz",
-      "hash": "04rz2dvs9nh47vpimfw1bff7c9gil79r9z33cjf90i7031p5kwhn"
+      "hash": "sha256-FvJZbhjgRJCcZGP8lNOh8SV2nFuBuxrvPgTapHcTPxM="
     },
     "disko": {
       "type": "Git",
@@ -37,7 +50,7 @@
       "submodules": false,
       "revision": "916506443ecd0d0b4a0f4cf9d40a3c22ce39b378",
       "url": "https://github.com/nix-community/disko/archive/916506443ecd0d0b4a0f4cf9d40a3c22ce39b378.tar.gz",
-      "hash": "1bp5hqzqqz99qgx55r50dbqz1b6x4i8q15xnxb0sj31ykbxhqj9z"
+      "hash": "sha256-P0kM+5o+DKnB6raXgFEk3azw8Wqg5FL6wyl9jD+G5a4="
     },
     "flake-compat": {
       "type": "Git",
@@ -48,9 +61,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "65f23138d8d09a92e30f1e5c87611b23ef451bf3",
-      "url": "https://github.com/NixOS/flake-compat/archive/65f23138d8d09a92e30f1e5c87611b23ef451bf3.tar.gz",
-      "hash": "1c5f7vfn205bj4bmkgzgyw9504xh5j7gcwi8jf7yh581bwzlwl71"
+      "revision": "236f248441a986331cda53b039e7f9fd96e03635",
+      "url": "https://github.com/NixOS/flake-compat/archive/236f248441a986331cda53b039e7f9fd96e03635.tar.gz",
+      "hash": "sha256-Eyg78VjLzKNG2XkqLqylSvHGAwsP8gsvmUHtZxQwPq4="
     },
     "mnw": {
       "type": "Git",
@@ -61,9 +74,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "6605bc394235fef09ae372faca744647e1fb0303",
-      "url": "https://github.com/Gerg-L/mnw/archive/6605bc394235fef09ae372faca744647e1fb0303.tar.gz",
-      "hash": "1gdmlfasrrq1p8piiyxwddf5qfp1wgbzcskl5sm0v6my2xci3j7m"
+      "revision": "195457be955922b1d0497ddc62422cc6fc2943ab",
+      "url": "https://github.com/Gerg-L/mnw/archive/195457be955922b1d0497ddc62422cc6fc2943ab.tar.gz",
+      "hash": "sha256-fzehEyKX2aT5z0zJGDKz+VQ6akjS3XbLBbJV+fOlFKo="
     },
     "nix-maid": {
       "type": "Git",
@@ -76,19 +89,33 @@
       "submodules": false,
       "revision": "d362e71ba087919822ec4f5c41b7572d828c749e",
       "url": "https://github.com/viperML/nix-maid/archive/d362e71ba087919822ec4f5c41b7572d828c749e.tar.gz",
-      "hash": "0jjah1glr9prqd4bqb3sd2i74np9zhvjcsl6j6q9g96wv0xpx9zp"
-    },
-    "nixos-25.11": {
-      "type": "Channel",
-      "name": "nixos-25.11",
-      "url": "https://releases.nixos.org/nixos/25.11/nixos-25.11.1948.c6f52ebd45e5/nixexprs.tar.xz",
-      "hash": "1hm8g0m8nvqrv7ajwm6n75p4d4j2nsb6rhckgpn39q5czi27f326"
+      "hash": "sha256-96d+O9jcpJewkYZqJjf86Vpyomh6LLxIw/mmTF+ASko="
     },
     "nixpkgs": {
-      "type": "Channel",
-      "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre913981.7d853e518814/nixexprs.tar.xz",
-      "hash": "1cpg513zly625rw05kbz1hvfiqcrwbd71c1bqhp61sh6ng8ifg4c"
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-unstable",
+      "submodules": false,
+      "revision": "3e2499d5539c16d0d173ba53552a4ff8547f4539",
+      "url": "https://github.com/NixOS/nixpkgs/archive/3e2499d5539c16d0d173ba53552a4ff8547f4539.tar.gz",
+      "hash": "sha256-QEhk0eXgyIqTpJ/ehZKg9IKS7EtlWxF3N7DXy42zPfU="
+    },
+    "nixpkgs-stable": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-25.11",
+      "submodules": false,
+      "revision": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
+      "url": "https://github.com/NixOS/nixpkgs/archive/f560ccec6b1116b22e6ed15f4c510997d99d5852.tar.gz",
+      "hash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ="
     },
     "preservation": {
       "type": "Git",
@@ -101,7 +128,7 @@
       "submodules": false,
       "revision": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
       "url": "https://github.com/nix-community/preservation/archive/93416f4614ad2dfed5b0dcf12f27e57d27a5ab11.tar.gz",
-      "hash": "0im42hnghfcp0bzlkngkdd7a93fh2dm0y82sllz7ryflm4hkvhlq"
+      "hash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY="
     },
     "treefmt-nix": {
       "type": "Git",
@@ -114,7 +141,7 @@
       "submodules": false,
       "revision": "42d96e75aa56a3f70cab7e7dc4a32868db28e8fd",
       "url": "https://github.com/numtide/treefmt-nix/archive/42d96e75aa56a3f70cab7e7dc4a32868db28e8fd.tar.gz",
-      "hash": "1hlnqdd7vq8w380ggra39r9p9dvnfn92ph3p844jvxvkybh8vjpr"
+      "hash": "sha256-+cqN4PJz9y0JQXfAK5J1drd0U05D5fcAGhzhfVrDlsI="
     },
     "wrapper-manager": {
       "type": "Git",
@@ -127,8 +154,8 @@
       "submodules": false,
       "revision": "801dd9c876fcada046af45543e8c7e0bbccf20ea",
       "url": "https://github.com/viperML/wrapper-manager/archive/801dd9c876fcada046af45543e8c7e0bbccf20ea.tar.gz",
-      "hash": "05hg8bnb3jjc95a83c0v59hjnjwf5w1kpfpj2ni12nk39r6fqr9q"
+      "hash": "sha256-OGXsTE5jWhGiFfK6OwMvjksrYSobsIFUSUzKsexCDxY="
     }
   },
-  "version": 5
+  "version": 7
 }

@@ -1,7 +1,7 @@
 {
   pkgs,
-  lib,
   config,
+  lib,
   ...
 }:
 {
@@ -11,36 +11,7 @@
       efi.canTouchEfiVariables = true;
     };
 
-    initrd = {
-      systemd.enable = true;
-    };
-  };
-
-  system = {
-    nixos-init.enable = true;
-    etc.overlay.enable = true;
-  };
-
-  networking.networkmanager = {
-    enable = true;
-    wifi = {
-      powersave = false;
-    };
-  };
-
-  services = {
-    xserver = {
-      videoDrivers = [ "nvidia" ];
-      wacom.enable = true;
-    };
-    scx = {
-      package = pkgs.stable.scx.rustscheds;
-      enable = true;
-      scheduler = "scx_lavd";
-    };
-  };
-
-  boot = {
+    initrd.systemd.enable = true;
     tmp.cleanOnBoot = true;
     extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
 
@@ -52,6 +23,27 @@
     ];
   };
 
+  services.userborn.enable = true;
+
+  system = {
+    nixos-init.enable = true;
+    etc.overlay.enable = true;
+  };
+
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
+
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+    scx = {
+      package = pkgs.stable.scx.rustscheds;
+      enable = true;
+      scheduler = "scx_lavd";
+    };
+  };
+
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware = {
@@ -59,6 +51,7 @@
     bluetooth.enable = true;
 
     graphics = {
+      enable = true;
       extraPackages = with pkgs; [ nvidia-vaapi-driver ];
       extraPackages32 = with pkgs; [ nvidia-vaapi-driver ];
     };
@@ -75,20 +68,17 @@
     };
   };
 
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "thunderbolt"
-        "usbhid"
-        "usb_storage"
-        "uas"
-      ];
-      unl0kr.allowVendorDrivers = true;
-    };
+  boot.initrd = {
+    availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "thunderbolt"
+      "usbhid"
+      "usb_storage"
+      "uas"
+    ];
+    unl0kr.allowVendorDrivers = true;
   };
 
-  networking.useDHCP = lib.mkDefault true;
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
 }

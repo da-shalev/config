@@ -39,7 +39,7 @@
             "4":       SwitchToTab("Playlists"),
             "5":       SwitchToTab("Search"),
             "q":       Quit,
-            // -- I use same shortcut everywhere
+            // -- I use the same shortcut everywhere
             // "p":       TogglePause
             // "<":       PreviousTrack,
             // ">":       NextTrack,

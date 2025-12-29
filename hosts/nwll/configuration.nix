@@ -1,22 +1,8 @@
 {
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
   security.sudo.wheelNeedsPassword = false;
-  systemd.targets = lib.genAttrs [ "sleep" "suspend" "hibernate" "hybrid-sleep" ] (_: {
-    enable = lib.mkForce false;
-  });
-
-  console = {
-    packages = with pkgs; [ spleen ];
-    font = "spleen-16x32";
-  };
 
   networking.firewall = {
-    enable = lib.mkDefault true;
+    enable = true;
     allowedTCPPorts = [
       22
       25565
@@ -34,42 +20,16 @@
     ];
   };
 
-  environment = {
-    defaultPackages = [ ];
-
-    variables = {
-      ALSA_CONFIG_UCM2 = "${
-        pkgs.stable.alsa-ucm-conf.overrideAttrs (old: {
-          src = (import ../../npins).alsa-ucm-conf;
-        })
-      }/share/alsa/ucm2";
-    };
-
-    systemPackages = with pkgs; [
-      usbutils
-      pciutils
-      file
-      libva-utils
-      (lib.mkIf (builtins.elem "nvidia" config.services.xserver.videoDrivers) nvitop)
-    ];
-
-    sessionVariables = {
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
-
-    localBinInPath = lib.mkDefault true;
-  };
-
   programs = {
     nix-ld.enable = true;
-    fish.package = lib.mkDefault pkgs.fishMinimal;
+
     appimage = {
       enable = true;
       binfmt = true;
     };
 
     gnupg.agent.enable = true;
-    localsend = { inherit (config.hardware.graphics) enable; };
+    localsend.enable = true;
     git.enable = true;
     direnv = {
       enable = true;
@@ -82,122 +42,12 @@
   services = {
     gvfs.enable = true;
     fstrim.enable = true;
-    pulseaudio.enable = lib.mkForce false;
     udisks2.enable = true;
     dbus.implementation = "broker";
-    userborn.enable = true;
     openssh.enable = true;
     rsyncd.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-
-      wireplumber.extraConfig."zz-device-profiles" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [ { "device.name" = "alsa_card.pci-0000_01_00.1"; } ];
-            actions = {
-              update-props = {
-                "device.profile" = "off";
-              };
-            };
-          }
-          {
-            matches = [
-              {
-                "device.name" = "alsa_card.usb-Focusrite_Scarlett_Solo_4th_Gen_S12A7663300686-00";
-              }
-            ];
-            actions = {
-              update-props = {
-                "device.profile" = "pro-audio";
-              };
-            };
-          }
-          {
-            matches = [ { "device.name" = "alsa_card.usb-Topping_DX3_Pro_-00"; } ];
-            actions = {
-              update-props = {
-                "device.profile" = "pro-audio";
-              };
-            };
-          }
-        ];
-      };
-    };
   };
 
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
-      "faeadnfmdfamenfhaipofoffijhlnkif" # into the black hole
-      "occjjkgifpmdgodlplnacmkejpdionan" # autoscroll
-      "fmkadmapgofadopljbjfkapdkoienihi" # react dev tools
-    ];
-    extraOpts = {
-      "DefaultSearchProviderEnabled" = true;
-      "DefaultSearchProviderSearchURL" = "google.com/search?q={searchTerms}";
-      "DefaultSearchProviderSuggestURL" = null;
-      "BrowserLabsEnabled" = false;
-      "GenAiDefaultSettings" = 2;
-      "BookmarkBarEnabled" = false;
-      "ImportBookmarks" = false;
-      "PromotionsEnabled" = false;
-      "BrowserSignin" = 0;
-      "DefaultBrowserSettingEnabled" = false;
-      "AutoSignInEnabled" = true;
-      "BrowserAddPersonEnabled" = false;
-      "BrowserGuestModeEnabled" = false;
-      "UserFeedbackAllowed" = false;
-      "BackgroundModeEnabled" = false;
-      "MetricsReportingEnabled" = false;
-      "BlockExternalExtensions" = true;
-      "AutofillAddressEnabled" = false;
-      "AutofillCreditCardEnabled" = false;
-      "PasswordManagerEnabled" = false;
-      "PromptForDownloadLocation" = true;
-      "SyncDisabled" = true;
-      "SpellcheckEnabled" = true;
-    };
-  };
-
-  fonts = lib.mkIf config.hardware.graphics.enable {
-    enableDefaultPackages = false;
-    packages = with pkgs; [
-      corefonts
-      iosevka
-      inter
-      nerd-fonts.symbols-only
-      twitter-color-emoji
-      fraunces
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-    ];
-
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [
-          "Fraunces"
-          "Symbols Nerd Font"
-        ];
-        sansSerif = [
-          "Inter Variable"
-          "Symbols Nerd Font"
-        ];
-        monospace = [
-          "Iosevka"
-          "Symbols Nerd Font Mono"
-        ];
-        emoji = [ "Twitter Color Emoji" ];
-      };
-    };
-  };
-
-  time.timeZone = lib.mkDefault "Canada/Eastern";
+  time.timeZone = "Canada/Eastern";
+  system.stateVersion = "26.05";
 }

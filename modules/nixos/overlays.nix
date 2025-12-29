@@ -1,5 +1,18 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}:
+{
+  maid.sharedModules = [
+    ../maid/shell
+    ../maid/wayland
+    ../maid/tmux
+    ../maid/fish
+    ../maid/hyprland
+  ];
+
+  # automates preservation for commonly used NixOS options
   preservation.preserveAt."/nix/persist" = {
     commonMountOptions = [
       "x-gvfs-hide"
@@ -45,8 +58,5 @@
     ];
   };
 
-  systemd = {
-    suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
-    services.NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
-  };
+  systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
 }
