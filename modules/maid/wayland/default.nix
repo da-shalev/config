@@ -6,7 +6,7 @@
 }:
 {
   options.wayland = {
-    enable = lib.mkEnableOption "Enables wayland." // {
+    enable = lib.mkEnableOption "Yep" // {
       default = false;
     };
 

@@ -17,8 +17,6 @@
     extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
 
     kernelParams = [
-      # laptops and dekstops don't need Watchdog
-      "nowatchdog"
       # https://www.phoronix.com/news/Linux-Splitlock-Hurts-Gaming
       "split_lock_detect=off"
     ];

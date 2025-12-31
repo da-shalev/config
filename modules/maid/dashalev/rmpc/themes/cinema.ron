@@ -22,7 +22,7 @@
     highlighted_item_style: (fg: "yellow", modifiers: "Bold"),
     current_item_style: (fg: "white", bg: "yellow", modifiers: "Bold"),
     symbols: (
-        song: "🎵",
+        song: "",
         dir: "📁",
         playlist: "🎼",
         marker: "\u{e0b0}",

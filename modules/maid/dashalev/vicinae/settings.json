@@ -1,0 +1,50 @@
+{
+  "launcher_window": {
+    "opacity": 0.94
+  },
+  "close_on_focus_loss": true,
+  "providers": {
+    "applications": {
+      "enabled": true
+    },
+    "clipboard": {
+      "preferences": {
+        "monitoring": true
+      }
+    },
+    "core": {
+      "enabled": false
+    },
+    "developer": {
+      "enabled": false
+    },
+    "manage-shortcuts": {
+      "enabled": false
+    },
+    "power": {
+      "entrypoints": {
+        "hibernate": {
+          "enabled": false
+        },
+        "lock": {
+          "enabled": false
+        },
+        "sleep": {
+          "enabled": false
+        },
+        "soft-reboot": {
+          "enabled": false
+        },
+        "suspend": {
+          "enabled": false
+        }
+      }
+    },
+    "raycast-compat": {
+      "enabled": false
+    },
+    "shortcuts": {
+      "enabled": false
+    }
+  }
+}

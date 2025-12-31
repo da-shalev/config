@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6a055fc747a5a899b97f9b4c1d1a52229a805b1e",
-      "url": "https://github.com/hyprwm/Hyprland/archive/6a055fc747a5a899b97f9b4c1d1a52229a805b1e.tar.gz",
-      "hash": "sha256-mGk+mk/miObjivy+6qMqQm+Jyl8R7t6B/1SaiBkUUyY="
+      "revision": "529559712bbfa9c8d79fe01770a77e925a7a0496",
+      "url": "https://github.com/hyprwm/Hyprland/archive/529559712bbfa9c8d79fe01770a77e925a7a0496.tar.gz",
+      "hash": "sha256-9idqwxRf6sUMOI0XfdHy4nUG9dcugK/O31xAyF/zrxs="
     },
     "NUR": {
       "type": "Git",
@@ -22,22 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d3e9bcacd0e944339ade2cbffa4f6d6f98e366d6",
-      "url": "https://github.com/nix-community/NUR/archive/d3e9bcacd0e944339ade2cbffa4f6d6f98e366d6.tar.gz",
-      "hash": "sha256-OgpqEjRWxWXebGC7sbBZLaVdQLM9BAtl/UpUhosivlI="
-    },
-    "alsa-ucm-conf": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "geoffreybennett",
-        "repo": "alsa-ucm-conf"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "765c952c7965001a65dc58b593e313f644bd9f6b",
-      "url": "https://github.com/geoffreybennett/alsa-ucm-conf/archive/765c952c7965001a65dc58b593e313f644bd9f6b.tar.gz",
-      "hash": "sha256-FvJZbhjgRJCcZGP8lNOh8SV2nFuBuxrvPgTapHcTPxM="
+      "revision": "084c0a5dea4d090b3801f1f4a36f032d3a5227c4",
+      "url": "https://github.com/nix-community/NUR/archive/084c0a5dea4d090b3801f1f4a36f032d3a5227c4.tar.gz",
+      "hash": "sha256-MQuKNKje/VC7WcqIC7vHy7UiFtPmlZjeGTMrNCjBz1w="
     },
     "disko": {
       "type": "Git",
@@ -61,9 +48,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "236f248441a986331cda53b039e7f9fd96e03635",
-      "url": "https://github.com/NixOS/flake-compat/archive/236f248441a986331cda53b039e7f9fd96e03635.tar.gz",
-      "hash": "sha256-Eyg78VjLzKNG2XkqLqylSvHGAwsP8gsvmUHtZxQwPq4="
+      "revision": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+      "url": "https://github.com/NixOS/flake-compat/archive/5edf11c44bc78a0d334f6334cdaf7d60d732daab.tar.gz",
+      "hash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns="
     },
     "mnw": {
       "type": "Git",
@@ -74,9 +61,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "195457be955922b1d0497ddc62422cc6fc2943ab",
-      "url": "https://github.com/Gerg-L/mnw/archive/195457be955922b1d0497ddc62422cc6fc2943ab.tar.gz",
-      "hash": "sha256-fzehEyKX2aT5z0zJGDKz+VQ6akjS3XbLBbJV+fOlFKo="
+      "revision": "75bb637454b0fbbb5ed652375a4bf7ffd28bcf6f",
+      "url": "https://github.com/Gerg-L/mnw/archive/75bb637454b0fbbb5ed652375a4bf7ffd28bcf6f.tar.gz",
+      "hash": "sha256-kSvWF3Xt2HW9hmV5V7i8PqeWJIBUKmuKoHhOgj3Znzs="
     },
     "nix-maid": {
       "type": "Git",
@@ -113,9 +100,9 @@
       },
       "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
-      "url": "https://github.com/NixOS/nixpkgs/archive/f560ccec6b1116b22e6ed15f4c510997d99d5852.tar.gz",
-      "hash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ="
+      "revision": "9ef261221d1e72399f2036786498d78c38185c46",
+      "url": "https://github.com/NixOS/nixpkgs/archive/9ef261221d1e72399f2036786498d78c38185c46.tar.gz",
+      "hash": "sha256-P6RVkrM9JLCW6xBjSwHfgTOQ1JwBUma5xe5LI8xAPC0="
     },
     "preservation": {
       "type": "Git",
@@ -139,9 +126,25 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "42d96e75aa56a3f70cab7e7dc4a32868db28e8fd",
-      "url": "https://github.com/numtide/treefmt-nix/archive/42d96e75aa56a3f70cab7e7dc4a32868db28e8fd.tar.gz",
-      "hash": "sha256-+cqN4PJz9y0JQXfAK5J1drd0U05D5fcAGhzhfVrDlsI="
+      "revision": "dec15f37015ac2e774c84d0952d57fcdf169b54d",
+      "url": "https://github.com/numtide/treefmt-nix/archive/dec15f37015ac2e774c84d0952d57fcdf169b54d.tar.gz",
+      "hash": "sha256-yOt/FTB7oSEKQH9EZMFMeuldK1HGpQs2eAzdS9hNS/o="
+    },
+    "vicinae": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vicinaehq",
+        "repo": "vicinae"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.17.3",
+      "revision": "e8e0c24ce35e1bbfc78029f7ad258f4d073f9e19",
+      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/refs/tags/v0.17.3",
+      "hash": "sha256-EzvASqrcGZqWyESuYNKRnH17s5hBJK2woIrS6iD6nOs="
     },
     "wrapper-manager": {
       "type": "Git",

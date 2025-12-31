@@ -21,6 +21,18 @@ let
     nur = (import sources.NUR) {
       pkgs = prev;
     };
+
+    fetchGithubRelease =
+      url: tag:
+      let
+        release = builtins.fromJSON (
+          builtins.readFile (builtins.fetchurl "https://api.github.com/repos/${url}/releases/${tag}")
+        );
+      in
+      builtins.fetchurl (builtins.head release.assets).browser_download_url;
+
+    # use vicinae directly sourced from git
+    vicinae = (import sources.vicinae { pkgs = final; }).vicinae;
     wrappers = (import sources.wrapper-manager).lib;
     neovim = (import sources.mnw).lib.wrap final { imports = [ ./neovim/module.nix ]; };
     maid = (import sources.nix-maid) final ../modules/maid;

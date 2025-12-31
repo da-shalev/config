@@ -3,41 +3,29 @@
   pkgs,
   ...
 }:
-let
-  sources = import ../../npins;
-  hyprland =
-    (import sources.flake-compat {
-      src = sources.Hyprland;
-    }).defaultNix;
-in
 {
   imports = [
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/audio.nix
     ../../modules/nixos/disable-sleep.nix
-    hyprland.nixosModules.default
   ];
 
-  programs.fish = {
+  programs = {
+    fish = {
+      enable = true;
+      package = pkgs.fishMinimal;
+    };
+
+    steam.enable = true;
+    hyprland.enable = true;
+  };
+
+  services.mullvad-vpn = {
     enable = true;
-    package = pkgs.fishMinimal;
+    package = pkgs.stable.mullvad-vpn;
   };
 
   rebuild.owner = "dashalev";
-
-  programs.hyprland = {
-    enable = true;
-    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
 
   preservation = {
     enable = true;
@@ -99,7 +87,6 @@ in
           enable = true;
           extraConfig = ''
             monitor=DP-1,highres@highrr,auto,1,bitdepth,10
-
             env=GSK_RENDERER,ngl
           '';
         };

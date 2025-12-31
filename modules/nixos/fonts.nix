@@ -12,10 +12,14 @@
       iosevka
       inter
       nerd-fonts.symbols-only
-      twitter-color-emoji
       fraunces
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
+
+      (pkgs.runCommand "apple-emoji-linux" { } ''
+        mkdir -p $out/share/fonts/truetype
+        cp ${pkgs.fetchGithubRelease "samuelngs/apple-emoji-linux" "latest"} $out/share/fonts/truetype/AppleColorEmoji.ttf
+      '')
     ];
 
     fontconfig = {
@@ -33,7 +37,7 @@
           "Iosevka"
           "Symbols Nerd Font Mono"
         ];
-        emoji = [ "Twitter Color Emoji" ];
+        emoji = [ "Apple Color Emoji" ];
       };
     };
   };

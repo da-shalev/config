@@ -1,24 +1,7 @@
+{ lib, ... }:
 {
   security.sudo.wheelNeedsPassword = false;
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22
-      25565
-      53317
-      4321
-      8096
-      8097
-      2234
-      8888
-      5173
-    ];
-
-    allowedUDPPorts = [
-      53317
-    ];
-  };
+  networking.firewall.enable = false;
 
   programs = {
     nix-ld.enable = true;
@@ -40,12 +23,14 @@
   };
 
   services = {
+    gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     fstrim.enable = true;
     udisks2.enable = true;
     dbus.implementation = "broker";
     openssh.enable = true;
     rsyncd.enable = true;
+    speechd.enable = lib.mkForce false;
   };
 
   time.timeZone = "Canada/Eastern";

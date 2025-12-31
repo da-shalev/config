@@ -6,6 +6,7 @@
     channel.enable = false;
     nixPath = [ "nixpkgs=/etc/nixpkgs" ];
     settings = {
+      builders-use-substitutes = true;
       substituters = [
         "https://nix-community.cachix.org"
       ];

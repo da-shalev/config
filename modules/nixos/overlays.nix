@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -17,7 +18,12 @@
     ../maid/tmux
     ../maid/fish
     ../maid/hyprland
+    ../maid/vicinae
   ];
+
+  environment.defaultPackages = [
+  ]
+  ++ lib.optionals config.services.mullvad-vpn.enable [ pkgs.mullvad-vpn ];
 
   # automates preservation for commonly used NixOS options
   preservation.preserveAt."/nix/persist" = {
