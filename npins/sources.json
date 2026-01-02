@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "529559712bbfa9c8d79fe01770a77e925a7a0496",
-      "url": "https://github.com/hyprwm/Hyprland/archive/529559712bbfa9c8d79fe01770a77e925a7a0496.tar.gz",
-      "hash": "sha256-9idqwxRf6sUMOI0XfdHy4nUG9dcugK/O31xAyF/zrxs="
+      "revision": "b9bd9d147fc00b7cc65f9545722182720cbd521d",
+      "url": "https://github.com/hyprwm/Hyprland/archive/b9bd9d147fc00b7cc65f9545722182720cbd521d.tar.gz",
+      "hash": "sha256-sGn59aoAv+valu406eykfZ9fjChe/+d3XdTCWXIy+hE="
     },
     "NUR": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "084c0a5dea4d090b3801f1f4a36f032d3a5227c4",
-      "url": "https://github.com/nix-community/NUR/archive/084c0a5dea4d090b3801f1f4a36f032d3a5227c4.tar.gz",
-      "hash": "sha256-MQuKNKje/VC7WcqIC7vHy7UiFtPmlZjeGTMrNCjBz1w="
+      "revision": "a6c1c493aad1629e14dec0a4de646426a747a4b9",
+      "url": "https://github.com/nix-community/NUR/archive/a6c1c493aad1629e14dec0a4de646426a747a4b9.tar.gz",
+      "hash": "sha256-EhYYM2yhMSnnwzJFs9U+FAUMje1SrzhOI1zblvMBLDY="
     },
     "disko": {
       "type": "Git",
@@ -87,9 +87,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
-      "url": "https://github.com/NixOS/nixpkgs/archive/c0b0e0fddf73fd517c3471e546c0df87a42d53f4.tar.gz",
-      "hash": "sha256-coBu0ONtFzlwwVBzmjacUQwj3G+lybcZ1oeNSQkgC0M="
+      "revision": "cad22e7d996aea55ecab064e84834289143e44a0",
+      "url": "https://github.com/NixOS/nixpkgs/archive/cad22e7d996aea55ecab064e84834289143e44a0.tar.gz",
+      "hash": "sha256-5vKw92l1GyTnjoLzEagJy5V5mDFck72LiQWZSOnSicw="
     },
     "nixpkgs-stable": {
       "type": "Git",
@@ -100,9 +100,9 @@
       },
       "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "9ef261221d1e72399f2036786498d78c38185c46",
-      "url": "https://github.com/NixOS/nixpkgs/archive/9ef261221d1e72399f2036786498d78c38185c46.tar.gz",
-      "hash": "sha256-P6RVkrM9JLCW6xBjSwHfgTOQ1JwBUma5xe5LI8xAPC0="
+      "revision": "64049ca74d63e971b627b5f3178d95642e61cedd",
+      "url": "https://github.com/NixOS/nixpkgs/archive/64049ca74d63e971b627b5f3178d95642e61cedd.tar.gz",
+      "hash": "sha256-yA/CuWyqm+AQo2ivGy6PlYrjZBQm7jfbe461+4HF2fo="
     },
     "preservation": {
       "type": "Git",
@@ -141,10 +141,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.17.3",
-      "revision": "e8e0c24ce35e1bbfc78029f7ad258f4d073f9e19",
-      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/refs/tags/v0.17.3",
-      "hash": "sha256-EzvASqrcGZqWyESuYNKRnH17s5hBJK2woIrS6iD6nOs="
+      "version": "v0.18.0",
+      "revision": "b22ad4bda3bfa0d878f719c61ec72f5fc273a13d",
+      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/refs/tags/v0.18.0",
+      "hash": "sha256-ApMcDKe+6uYb2M+UL8SWW8M1S5bmT8EI5uOChLxzWqs="
     },
     "wrapper-manager": {
       "type": "Git",

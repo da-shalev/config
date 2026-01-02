@@ -33,20 +33,43 @@
 
     start = with pkgs.vimPlugins; [
       gruvbox-nvim
-      # lualine-nvim
+      lualine-nvim
       fzf-lua
       conform-nvim
 
       todo-comments-nvim
 
-      nvim-treesitter.withAllGrammars
+      (nvim-treesitter.withPlugins (
+        p: with p; [
+          tree-sitter-bash
+          tree-sitter-c
+          tree-sitter-cpp
+          tree-sitter-go
+          tree-sitter-json
+          tree-sitter-fish
+          tree-sitter-lua
+          tree-sitter-nix
+          tree-sitter-python
+          tree-sitter-rust
+          tree-sitter-wgsl
+          tree-sitter-toml
+          tree-sitter-astro
+          tree-sitter-tsx
+          tree-sitter-xml
+          tree-sitter-html
+          tree-sitter-typescript
+          tree-sitter-javascript
+          tree-sitter-vimdoc
+          tree-sitter-go
+          tree-sitter-yaml
+        ]
+      ))
 
       lazydev-nvim
       nvim-lspconfig
       nvim-ts-autotag
 
       comment-nvim
-      nvim-autopairs
 
       friendly-snippets
       blink-cmp
@@ -68,13 +91,13 @@
 
     tailwindcss-language-server
     yaml-language-server
-    svelte-language-server
+    # svelte-language-server
     typescript-language-server
     typescript
     stylua
     prettier
     # mdx-language-server
-    nimlangserver
+    # nimlangserver
     astro-language-server
 
     ripgrep
@@ -87,14 +110,14 @@
     # php83Packages.psalm
     # intelephense
 
-    deadnix
-    statix
-    editorconfig-checker
-    ruff
-    mypy
-    jq
-    yq
-    shfmt
+    # deadnix
+    # statix
+    # editorconfig-checker
+    # ruff
+    # mypy
+    # jq
+    # yq
+    # shfmt
   ];
 
   aliases = [

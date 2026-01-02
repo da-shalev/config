@@ -19,6 +19,7 @@ let
       };
     };
     nur = (import sources.NUR) {
+      nurpkgs = prev;
       pkgs = prev;
     };
 

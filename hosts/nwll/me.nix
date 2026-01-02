@@ -11,11 +11,6 @@
   ];
 
   programs = {
-    fish = {
-      enable = true;
-      package = pkgs.fishMinimal;
-    };
-
     steam.enable = true;
     hyprland.enable = true;
   };
@@ -71,7 +66,7 @@
         "input"
         "docker"
       ];
-      shell = pkgs.fish;
+      shell = pkgs.fishMinimal;
       initialPassword = "boobs";
 
       maid = {

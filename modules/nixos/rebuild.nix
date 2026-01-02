@@ -6,15 +6,9 @@
 }:
 {
   options.rebuild = {
-    dir = lib.mkOption {
-      type = lib.types.str;
-      default = "/config";
-    };
-
     path = lib.mkOption {
       type = lib.types.path;
-      readOnly = true;
-      default = "${config.rebuild.dir}";
+      default = "/config";
     };
 
     owner = lib.mkOption {
@@ -111,24 +105,31 @@
             fi
           '';
         };
+
+        optimise = pkgs.writeShellApplication {
+          name = "optimise";
+          runtimeInputs = with pkgs; [
+            libnotify
+            nix
+          ];
+          text = ''
+            [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization started" -u normal
+            SECONDS=0
+            if nix store optimise; then
+              [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization complete" "Finished in $SECONDS seconds" -u normal
+            else
+              [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization failed" "Failed after $SECONDS seconds" -u critical
+            fi
+          '';
+        };
       in
       {
-        variables.NIXPKGS_CONFIG = lib.mkOverride 0 config.rebuild.path;
         systemPackages = [
           upgrade
           update
           bootgrade
           cleanup
-
-          (pkgs.makeDesktopItem {
-            name = "system.cleanup";
-            desktopName = "Cleanup";
-            exec = "${lib.getExe' pkgs.systemd "systemd-run"} --user ${lib.getExe cleanup}";
-            terminal = false;
-            categories = [ "System" ];
-            comment = "Clean up system garbage";
-            icon = "user-trash-full";
-          })
+          optimise
 
           (pkgs.makeDesktopItem {
             name = "system.upgrade";
@@ -158,6 +159,26 @@
             categories = [ "System" ];
             comment = "Build new boot generation";
             icon = "system-reboot-symbolic";
+          })
+
+          (pkgs.makeDesktopItem {
+            name = "system.cleanup";
+            desktopName = "Cleanup";
+            exec = "${lib.getExe' pkgs.systemd "systemd-run"} --user ${lib.getExe cleanup}";
+            terminal = false;
+            categories = [ "System" ];
+            comment = "Clean up system garbage";
+            icon = "user-trash-full";
+          })
+
+          (pkgs.makeDesktopItem {
+            name = "system.optimise";
+            desktopName = "Optimise";
+            exec = "${lib.getExe' pkgs.systemd "systemd-run"} --user ${lib.getExe optimise}";
+            terminal = false;
+            categories = [ "System" ];
+            comment = "Deduplicates the store";
+            icon = "user-trash-full";
           })
         ];
       };

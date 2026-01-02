@@ -10,11 +10,9 @@
     packages = with pkgs; [
       corefonts
       iosevka
-      inter
       nerd-fonts.symbols-only
-      fraunces
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
+      source-han-sans
+      source-han-serif
 
       (pkgs.runCommand "apple-emoji-linux" { } ''
         mkdir -p $out/share/fonts/truetype
@@ -26,11 +24,11 @@
       enable = true;
       defaultFonts = {
         serif = [
-          "Fraunces"
+          "Source Han Serif SC"
           "Symbols Nerd Font"
         ];
         sansSerif = [
-          "Inter Variable"
+          "Source Han Sans SC"
           "Symbols Nerd Font"
         ];
         monospace = [

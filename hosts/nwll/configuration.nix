@@ -12,7 +12,6 @@
     };
 
     gnupg.agent.enable = true;
-    localsend.enable = true;
     git.enable = true;
     direnv = {
       enable = true;

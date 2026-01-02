@@ -124,7 +124,7 @@
       nodejs
       nimble
 
-      ffmpeg-full
+      ffmpeg
       yt-dlp
       wget
 
@@ -141,11 +141,11 @@
 
       # music stuff
       spek
-      shntool
-      beets
-      python313Packages.audiotools
+      # shntool
+      # beets
+      # python313Packages.audiotools
+      # eyed3
       flac
-      eyed3
       rmpc
       (pkgs.makeDesktopItem {
         name = "rmpc";
@@ -164,7 +164,6 @@
       openssl
       gh
       mdwatch
-      maven
 
       # custom
       fzf-media
@@ -178,14 +177,16 @@
       code-cursor
 
       obs-studio
+      localsend
       signal-desktop-bin
       vulkan-hdr-layer-kwin6
 
       qbittorrent
       nicotine-plus
 
-      heroic-unwrapped
+      # heroic-unwrapped
       nur.repos.forkprince.helium-nightly
+      # firefox
 
       (wrappers.wrapWith pkgs {
         basePackage = pkgs.looking-glass-client;
@@ -193,8 +194,7 @@
       })
 
       vesktop
-      krita
-      blender
+      # blender
       tutanota-desktop
     ];
 
@@ -236,6 +236,7 @@
       "applications:system.bootgrade"
       "applications:system.update"
       "applications:system.cleanup"
+      "applications:system.optimise"
     ];
     settings = builtins.fromJSON (builtins.readFile ./vicinae/settings.json);
   };
