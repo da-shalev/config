@@ -24,11 +24,11 @@
       enable = true;
       defaultFonts = {
         serif = [
-          "Source Han Serif SC"
+          "Source Han Serif"
           "Symbols Nerd Font"
         ];
         sansSerif = [
-          "Source Han Sans SC"
+          "Source Han Sans"
           "Symbols Nerd Font"
         ];
         monospace = [

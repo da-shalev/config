@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -11,7 +12,10 @@
   ];
 
   programs = {
-    steam.enable = true;
+    steam = {
+      enable = true;
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
+    };
     hyprland.enable = true;
   };
 
@@ -35,15 +39,6 @@
 
   fileSystems = {
     "/".neededForBoot = true;
-    "/home/dashalev/media/vms" = {
-      device = "/dev/disk/by-partlabel/disk-foozilla-gaming";
-      fsType = "xfs";
-      options = [
-        "defaults"
-        "nofail"
-      ];
-    };
-
     "/home/dashalev/media/entertainment" = {
       device = "/dev/disk/by-partlabel/disk-tomatoes-media";
       fsType = "xfs";
@@ -82,7 +77,7 @@
           enable = true;
           extraConfig = ''
             monitor=DP-1,highres@highrr,auto,1,bitdepth,10
-            env=GSK_RENDERER,ngl
+            exec-once = ${lib.getExe pkgs.hypridle}
           '';
         };
 

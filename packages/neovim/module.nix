@@ -39,13 +39,15 @@
 
       todo-comments-nvim
 
-      (nvim-treesitter.withPlugins (
+      (pkgs.stable.vimPlugins.nvim-treesitter.withPlugins (
         p: with p; [
           tree-sitter-bash
           tree-sitter-c
           tree-sitter-cpp
+          tree-sitter-css
+          tree-sitter-scss
           tree-sitter-go
-          tree-sitter-json
+          tree-sitter-json5
           tree-sitter-fish
           tree-sitter-lua
           tree-sitter-nix

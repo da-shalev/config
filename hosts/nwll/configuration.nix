@@ -2,6 +2,7 @@
 {
   security.sudo.wheelNeedsPassword = false;
   networking.firewall.enable = false;
+  services.flatpak.enable = true;
 
   programs = {
     nix-ld.enable = true;
@@ -22,7 +23,7 @@
   };
 
   services = {
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     fstrim.enable = true;
     udisks2.enable = true;

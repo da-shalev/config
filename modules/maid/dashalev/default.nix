@@ -62,6 +62,7 @@
     "mpv/mpv.conf".source = ./mpv.conf;
     "fd/ignore".source = ./fd/ignore;
     "looking-glass/client.ini".source = ./looking-glass/client.ini;
+    "hypr/hypridle.conf".source = ./hypridle.conf;
   };
 
   dirs = [ "$XDG_STATE_HOME/bash" ];
@@ -175,6 +176,7 @@
       nautilus
       foot
       code-cursor
+      claude-code
 
       obs-studio
       localsend
@@ -182,19 +184,21 @@
       vulkan-hdr-layer-kwin6
 
       qbittorrent
+      pcsx2
+      nomachine-client
       nicotine-plus
 
-      # heroic-unwrapped
       nur.repos.forkprince.helium-nightly
-      # firefox
+      google-chrome
+      firefox-beta
 
       (wrappers.wrapWith pkgs {
         basePackage = pkgs.looking-glass-client;
         env."__NV_DISABLE_EXPLICIT_SYNC".value = "1";
       })
 
-      vesktop
       # blender
+      prismlauncher
       tutanota-desktop
     ];
 
