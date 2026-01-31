@@ -23,9 +23,15 @@
       type = lib.types.lines;
       default = "";
     };
+
+    packages = lib.mkOption {
+      default = [ ];
+      type = lib.types.listOf lib.types.package;
+    };
   };
 
   config = lib.mkIf config.hyprland.enable {
+    packages = config.hyprland.packages;
     file.xdg_config."hypr/hyprland.conf".text = ''
       $mod=${config.hyprland.mod}
       ${config.hyprland.config}

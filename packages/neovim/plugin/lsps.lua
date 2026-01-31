@@ -1,5 +1,5 @@
 require('lazydev').setup()
-require('Comment').setup()
+-- require('Comment').setup()
 
 local conform = require('conform')
 conform.setup({
@@ -120,3 +120,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     on_attach(args.buf)
   end,
 })
+
+
+require('ts-comments').setup({})

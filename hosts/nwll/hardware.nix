@@ -12,7 +12,26 @@
     };
     kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
-    initrd.systemd.enable = true;
+    blacklistedKernelModules = [
+      # prevent amdgpu drivers from being loaded, disable igpu
+      "amdgpu"
+      # blacklist its audio module
+      "snd_hda_intel"
+    ];
+
+    initrd = {
+      systemd.enable = true;
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usbhid"
+        "usb_storage"
+        "uas"
+      ];
+      unl0kr.allowVendorDrivers = true;
+    };
+
     tmp.cleanOnBoot = true;
     extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
 
@@ -65,18 +84,6 @@
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
-  };
-
-  boot.initrd = {
-    availableKernelModules = [
-      "nvme"
-      "xhci_pci"
-      "thunderbolt"
-      "usbhid"
-      "usb_storage"
-      "uas"
-    ];
-    unl0kr.allowVendorDrivers = true;
   };
 
   hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;

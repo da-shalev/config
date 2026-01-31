@@ -61,7 +61,7 @@
     "tms/config.toml".source = ./tms.toml;
     "mpv/mpv.conf".source = ./mpv.conf;
     "fd/ignore".source = ./fd/ignore;
-    "looking-glass/client.ini".source = ./looking-glass/client.ini;
+    # "looking-glass/client.ini".source = ./looking-glass/client.ini;
     "hypr/hypridle.conf".source = ./hypridle.conf;
   };
 
@@ -157,7 +157,6 @@
         comment = "TUI client for MPD ";
         icon = "org.gnome.Music";
       })
-      mpc
       cava
 
       neovim
@@ -185,22 +184,40 @@
 
       qbittorrent
       pcsx2
-      nomachine-client
+      # nomachine-client
       nicotine-plus
 
-      nur.repos.forkprince.helium-nightly
-      google-chrome
-      firefox-beta
-
       (wrappers.wrapWith pkgs {
-        basePackage = pkgs.looking-glass-client;
-        env."__NV_DISABLE_EXPLICIT_SYNC".value = "1";
+        basePackage = nur.repos.forkprince.helium-nightly;
+        prependFlags = [
+          # FIX: broken blacks in chrome for now
+          "--disable-features=WaylandWpColorManagerV1"
+        ];
       })
+      firefox-beta
 
       # blender
       prismlauncher
       tutanota-desktop
     ];
+
+  hyprland = {
+    packages = with pkgs; [
+      foot
+      fnott
+      mpd
+      vicinae
+      hyprshot
+      hyprsunset
+      hyprpicker
+      wl-clipboard
+      mpc
+    ];
+
+    config = ''
+      ${builtins.readFile ./hyprland.conf}
+    '';
+  };
 
   tmux = {
     enable = true;
@@ -244,25 +261,4 @@
     ];
     settings = builtins.fromJSON (builtins.readFile ./vicinae/settings.json);
   };
-
-  hyprland.config = ''
-    ${builtins.readFile ./hyprland.conf}
-
-    exec-once=${lib.getExe pkgs.foot} --server --log-no-syslog
-    exec-once=${lib.getExe pkgs.fnott}
-    exec-once=${lib.getExe pkgs.mpd}
-    exec-once=${lib.getExe pkgs.vicinae} server
-
-    bind=$mod, Return, exec, ${lib.getExe' pkgs.foot "footclient"} -D ~/media
-    bind=$mod+Shift, S, exec, ${lib.getExe pkgs.hyprshot} -m region --clipboard-only
-    bind=$mod+Shift, N, exec, pkill hyprsunset || ${lib.getExe pkgs.hyprsunset} -t 4000
-    bind=$mod+Shift, C, exec, pkill hyprpicker || ${lib.getExe pkgs.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
-    bind=$mod+Shift, E, exec, ${lib.getExe pkgs.vicinae} deeplink vicinae://extensions/vicinae/core/search-emojis
-    bind=$mod, Space, exec, ${lib.getExe pkgs.vicinae} toggle
-    bind=$mod, Tab, exec, ${lib.getExe pkgs.vicinae} deeplink vicinae://extensions/vicinae/wm/switch-windows
-
-    bind = , XF86AudioPlay, exec, ${lib.getExe pkgs.mpc} toggle
-    bind = , XF86AudioPrev, exec, ${lib.getExe pkgs.mpc} prev
-    bind = , XF86AudioNext, exec, ${lib.getExe pkgs.mpc} next
-  '';
 }

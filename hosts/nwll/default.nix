@@ -3,5 +3,5 @@ import ../. "nwll" [
   ./configuration.nix
   ./hardware.nix
   ./me.nix
-  ./passthrough.nix
+  # ./passthrough.nix
 ]

@@ -39,7 +39,7 @@
 
       todo-comments-nvim
 
-      (pkgs.stable.vimPlugins.nvim-treesitter.withPlugins (
+      (nvim-treesitter.withPlugins (
         p: with p; [
           tree-sitter-bash
           tree-sitter-c
@@ -72,6 +72,7 @@
       nvim-ts-autotag
 
       comment-nvim
+      ts-comments-nvim
 
       friendly-snippets
       blink-cmp
