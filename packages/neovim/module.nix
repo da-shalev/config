@@ -71,7 +71,6 @@
       nvim-lspconfig
       nvim-ts-autotag
 
-      comment-nvim
       ts-comments-nvim
 
       friendly-snippets
@@ -94,13 +93,10 @@
 
     tailwindcss-language-server
     yaml-language-server
-    # svelte-language-server
     typescript-language-server
     typescript
     stylua
     prettier
-    # mdx-language-server
-    # nimlangserver
     astro-language-server
 
     ripgrep
@@ -108,19 +104,7 @@
     git
     fzf
 
-    # jdt-language-server
     pyright
-    # php83Packages.psalm
-    # intelephense
-
-    # deadnix
-    # statix
-    # editorconfig-checker
-    # ruff
-    # mypy
-    # jq
-    # yq
-    # shfmt
   ];
 
   aliases = [

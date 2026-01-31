@@ -8,18 +8,15 @@
     enable = lib.mkEnableOption "Configures the fish shell." // {
       default = false;
     };
+
     plugins = lib.mkOption {
       type = with lib.types; listOf package;
       default = [ ];
       description = "Define the fish plugins you want to use.";
     };
+
     interactive = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
-    };
-    extraConfig = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
+      type = lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;
     };
 
     themes = lib.mkOption {
@@ -69,7 +66,7 @@
           end
 
           status is-interactive; and begin
-            ${config.fish.interactive}
+            ${builtins.readFile config.fish.interactive}
             ${fishAliases}
 
             function load_plugin_dir
@@ -94,8 +91,6 @@
 
             ${plugins}
           end
-
-          ${config.fish.extraConfig}
         '';
       };
   };

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
 {
@@ -75,10 +74,7 @@
 
         hyprland = {
           enable = true;
-          extraConfig = ''
-            monitor=DP-1,highres@highrr,auto,1,bitdepth,10
-            exec-once = ${lib.getExe pkgs.hypridle}
-          '';
+          extraConfig = ./hyprland.conf;
         };
 
         wayland = {

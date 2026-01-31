@@ -9,13 +9,14 @@
     enable = lib.mkEnableOption "Enable tmux." // {
       default = false;
     };
+
     plugins = lib.mkOption {
       type = with lib.types; listOf package;
       default = [ ];
     };
+
     config = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
+      type = lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;
     };
   };
 
@@ -31,7 +32,7 @@
       in
       {
         "tmux/tmux.conf".text = ''
-          ${config.tmux.config}
+          ${builtins.readFile config.tmux.config}
           ${plugins}
         '';
       };

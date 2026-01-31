@@ -62,7 +62,6 @@
     "mpv/mpv.conf".source = ./mpv.conf;
     "fd/ignore".source = ./fd/ignore;
     # "looking-glass/client.ini".source = ./looking-glass/client.ini;
-    "hypr/hypridle.conf".source = ./hypridle.conf;
   };
 
   dirs = [ "$XDG_STATE_HOME/bash" ];
@@ -170,7 +169,6 @@
       fzf-search
     ]
     ++ lib.optionals config.hyprland.enable [
-      vicinae
       mpv
       nautilus
       foot
@@ -212,18 +210,16 @@
       hyprpicker
       wl-clipboard
       mpc
+      hypridle
     ];
 
-    config = ''
-      ${builtins.readFile ./hyprland.conf}
-    '';
+    config = ./hyprland.conf;
+    idleConfig = ./hypridle.conf;
   };
 
   tmux = {
     enable = true;
-    config = ''
-      ${builtins.readFile ./tmux.conf}
-    '';
+    config = ./tmux.conf;
     plugins = with pkgs.tmuxPlugins; [ yank ];
   };
 
@@ -241,9 +237,7 @@
       autopair
     ];
 
-    interactive = ''
-      ${builtins.readFile ./fish/config.fish}
-    '';
+    interactive = ./fish/config.fish;
   };
 
   vicinae = {

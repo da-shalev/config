@@ -15,13 +15,15 @@
     };
 
     config = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
+      type = lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;
+    };
+
+    idleConfig = lib.mkOption {
+      type = lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;
     };
 
     extraConfig = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
+      type = lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;
     };
 
     packages = lib.mkOption {
@@ -32,10 +34,11 @@
 
   config = lib.mkIf config.hyprland.enable {
     packages = config.hyprland.packages;
+    file.xdg_config."hypr/hypridle.conf".source = config.hyprland.idleConfig;
     file.xdg_config."hypr/hyprland.conf".text = ''
       $mod=${config.hyprland.mod}
-      ${config.hyprland.config}
-      ${config.hyprland.extraConfig}
+      ${builtins.readFile config.hyprland.config}
+      ${builtins.readFile config.hyprland.extraConfig}
     '';
   };
 }
