@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   console = {
     packages = with pkgs; [ spleen ];
@@ -22,6 +22,14 @@
 
     fontconfig = {
       enable = true;
+      hinting = {
+        enable = lib.mkDefault false;
+        style = lib.mkDefault "none"; # yes this makes a difference even when hinting.enable = false;
+      };
+      subpixel = {
+        lcdfilter = lib.mkDefault "none";
+        rgba = lib.mkDefault "none";
+      };
       defaultFonts = {
         serif = [
           "Source Han Serif"
