@@ -114,7 +114,7 @@
     packages = with pkgs; [
       wl-clipboard
       libnotify
-      xorg.xeyes
+      xeyes
       imv
       libxcvt
     ];

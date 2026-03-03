@@ -61,6 +61,7 @@
           tree-sitter-html
           tree-sitter-typescript
           tree-sitter-javascript
+          tree-sitter-jsdoc
           tree-sitter-vimdoc
           tree-sitter-go
           tree-sitter-yaml

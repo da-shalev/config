@@ -3,6 +3,10 @@ set -x fish_prompt_pwd_dir_length 50
 bind --erase --all
 history merge
 
+if command -q direnv
+  direnv hook fish | source
+end
+
 function fish_mode_prompt
 end
 

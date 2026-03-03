@@ -13,11 +13,12 @@
       nerd-fonts.symbols-only
       source-han-sans
       source-han-serif
+      twitter-color-emoji
 
-      (pkgs.runCommand "apple-emoji-linux" { } ''
-        mkdir -p $out/share/fonts/truetype
-        cp ${pkgs.fetchGithubRelease "samuelngs/apple-emoji-linux" "latest"} $out/share/fonts/truetype/AppleColorEmoji.ttf
-      '')
+      # (pkgs.runCommand "apple-emoji-linux" { } ''
+      #   mkdir -p $out/share/fonts/truetype
+      #   cp ${pkgs.fetchGithubRelease "samuelngs/apple-emoji-linux" "latest"} $out/share/fonts/truetype/AppleColorEmoji.ttf
+      # '')
     ];
 
     fontconfig = {
@@ -43,7 +44,7 @@
           "Iosevka"
           "Symbols Nerd Font Mono"
         ];
-        emoji = [ "Apple Color Emoji" ];
+        emoji = [ "Twitter Color Emoji" ];
       };
     };
   };

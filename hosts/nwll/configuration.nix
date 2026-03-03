@@ -17,6 +17,9 @@
     direnv = {
       enable = true;
       silent = true;
+      nix-direnv = {
+        enable = true;
+      };
     };
 
     command-not-found.enable = false;
@@ -24,6 +27,7 @@
 
   services = {
     # gnome.gnome-keyring.enable = true;
+    mongodb.enable = true;
     gvfs.enable = true;
     fstrim.enable = true;
     udisks2.enable = true;
