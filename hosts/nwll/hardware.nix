@@ -10,7 +10,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkForce pkgs.linuxPackages_6_18;
 
     blacklistedKernelModules = [
       # prevent amdgpu drivers from being loaded, disable igpu

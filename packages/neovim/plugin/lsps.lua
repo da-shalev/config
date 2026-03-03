@@ -24,6 +24,7 @@ conform.setup({
 
 vim.lsp.enable({
   'nil_ls',
+  -- 'mdx',
   'lua_ls',
   'jsonls',
   'svelte',
@@ -120,6 +121,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     on_attach(args.buf)
   end,
 })
-
 
 require('ts-comments').setup({})

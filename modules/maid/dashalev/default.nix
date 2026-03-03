@@ -162,6 +162,7 @@
       treefmt
       openssl
       gh
+      railway
       mdwatch
 
       # custom
@@ -169,6 +170,7 @@
       fzf-search
     ]
     ++ lib.optionals config.hyprland.enable [
+      # GRAPHICS XDDDDD
       mpv
       nautilus
       foot
@@ -177,6 +179,7 @@
 
       obs-studio
       localsend
+      stable.beets
       signal-desktop-bin
       vulkan-hdr-layer-kwin6
 
@@ -192,11 +195,12 @@
           "--disable-features=WaylandWpColorManagerV1"
         ];
       })
-      firefox-beta
+      firefox
 
       # blender
       prismlauncher
       tutanota-desktop
+      postman
     ];
 
   hyprland = {

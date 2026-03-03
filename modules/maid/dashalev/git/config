@@ -7,3 +7,13 @@
 [user]
 	email = "44515019+da-shalev@users.noreply.github.com"
 	name = "da-shalev"
+
+[push]
+	autoSetupRemote = true
+
+[merge]
+  tool = vimdiff
+
+[mergetool "vimdiff"]
+  path = nvim
+  trustExitCode = true
