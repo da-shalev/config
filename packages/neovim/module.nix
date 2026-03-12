@@ -50,6 +50,7 @@
           tree-sitter-json5
           tree-sitter-fish
           tree-sitter-lua
+          tree-sitter-ron
           tree-sitter-nix
           tree-sitter-python
           tree-sitter-rust

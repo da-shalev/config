@@ -14,6 +14,8 @@ header: false
 hyperlink: never
 ignore-globs:
 - '**/.DS_Store'
+- '**/.stfolder'
+- '**/.localized'
 indicators: false
 layout: grid
 no-symlink: false

@@ -1,10 +1,6 @@
 lib:
 let
   sources = import ../npins;
-  hyprland =
-    (import sources.flake-compat {
-      src = sources.Hyprland;
-    }).defaultNix;
 
   overlayAuto =
     final: prev:
@@ -22,6 +18,7 @@ let
         allowUnfree = true;
       };
     };
+
     nur = (import sources.NUR) {
       nurpkgs = prev;
       pkgs = prev;
@@ -36,14 +33,9 @@ let
       in
       builtins.fetchurl (builtins.head release.assets).browser_download_url;
 
-    # use vicinae directly sourced from git
-    vicinae = (import sources.vicinae { pkgs = final; }).vicinae;
     wrappers = (import sources.wrapper-manager).lib;
     neovim = (import sources.mnw).lib.wrap final { imports = [ ./neovim/module.nix ]; };
     maid = (import sources.nix-maid) final ../modules/maid;
-    hyprland = hyprland.packages.${final.stdenv.hostPlatform.system}.default;
-    xdg-desktop-portal-hyprland =
-      hyprland.packages.${final.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 in
 

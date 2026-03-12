@@ -25,9 +25,10 @@
     command-not-found.enable = false;
   };
 
+  virtualisation.docker.enable = true;
   services = {
     # gnome.gnome-keyring.enable = true;
-    mongodb.enable = true;
+    # mongodb.enable = true;
     gvfs.enable = true;
     fstrim.enable = true;
     udisks2.enable = true;

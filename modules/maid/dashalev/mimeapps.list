@@ -12,6 +12,7 @@ application/x-extension-xhtml=helium.desktop;
 application/x-extension-xht=helium.desktop;
 x-scheme-handler/sgnl=signal.desktop;
 x-scheme-handler/signalcaptcha=signal.desktop;
+x-scheme-handler/tg=org.telegram.desktop.desktop;
 image/png=imv.desktop;
 image/jpeg=imv.desktop;
 image/gif=imv.desktop;

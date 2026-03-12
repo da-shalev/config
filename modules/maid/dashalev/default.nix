@@ -141,11 +141,6 @@
 
       # music stuff
       spek
-      # shntool
-      # beets
-      # python313Packages.audiotools
-      # eyed3
-      flac
       rmpc
       (pkgs.makeDesktopItem {
         name = "rmpc";
@@ -160,6 +155,8 @@
 
       neovim
       treefmt
+      nixfmt
+      stylua
       openssl
       gh
       railway
@@ -180,7 +177,8 @@
       obs-studio
       localsend
       stable.beets
-      signal-desktop-bin
+      signal-desktop
+      telegram-desktop
       vulkan-hdr-layer-kwin6
 
       qbittorrent
