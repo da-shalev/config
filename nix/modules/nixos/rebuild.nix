@@ -8,7 +8,7 @@
   options.rebuild = {
     path = lib.mkOption {
       type = lib.types.path;
-      default = "/config";
+      default = "/config/nix";
     };
 
     owner = lib.mkOption {
