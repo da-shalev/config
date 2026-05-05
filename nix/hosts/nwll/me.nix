@@ -9,17 +9,25 @@
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/audio.nix
     ../../modules/nixos/disable-sleep.nix
-    ../../modules/nixos/convex.nix
+    # ../../modules/nixos/convex.nix
+    ../../modules/nixos/ntfy.nix
   ];
 
-  services.convex.enable = true;
+  # services.convex.enable = true;
 
   programs = {
     steam = {
       enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
+      package = pkgs.steam.override {
+        extraPkgs = pkgs': with pkgs'; [ libpulseaudio ];
+      };
     };
     hyprland.enable = true;
+    ydotool = {
+      enable = true;
+      group = "input";
+    };
   };
 
   services = {
@@ -73,19 +81,15 @@
       };
     };
 
-    ntfy-sh = {
+    ntfy = {
       enable = true;
-      settings = {
-        base-url = "http://${config.networking.hostName}:2586";
-        listen-http = "0.0.0.0:2586";
-      };
+      openFirewall = true;
     };
 
     smartd = {
       enable = true;
       notifications = {
         wall.enable = false;
-        x11.enable = true;
         test = false;
       };
       defaults.monitored = "-a -m root -M exec ${pkgs.writeShellScript "smartd-notify" ''
@@ -114,7 +118,7 @@
         user = "upsmon";
       };
       settings = {
-        NOTIFYCMD = "p=high; case $NOTIFYTYPE in LOWBATT|FSD) p=max;; esac; ${lib.getExe config.rebuild.notify} \"UPS: $NOTIFYTYPE\" \"electric_plug\" \"$p\"";
+        NOTIFYCMD = "p=high; case $NOTIFYTYPE in LOWBATT|FSD) p=max;; esac; ${lib.getExe config.rebuild.notify} 'UPS: '$NOTIFYTYPE 'electric_plug' $p 'Power event: '$NOTIFYTYPE";
         NOTIFYFLAG = [
           [
             "ONLINE"
@@ -205,10 +209,6 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    2586 # ntfy-sh
-  ];
-
   networking.nftables = {
     enable = true;
     tables.excludeFromVPN = {
@@ -223,9 +223,19 @@
           tcp sport { 137, 139, 445 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
           udp dport { 137, 138 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
           udp sport { 137, 138 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
-          # ntfy, syncthing
-          tcp dport { 2586, 8384, 22000 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          # ntfy, syncthing, radicale
+          tcp dport { 2586, 5232, 8384, 22000 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          tcp sport { 2586, 5232, 8384, 22000 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
           udp dport { 21027, 22000 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          udp sport { 21027, 22000 } ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          # web dev
+          tcp dport 3000-3005 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          tcp sport 3000-3005 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          # localsend
+          tcp dport 53317 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          tcp sport 53317 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          udp dport 53317 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+          udp sport 53317 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
         }
       '';
     };
@@ -242,18 +252,6 @@
           user = "dashalev";
           group = "users";
         }
-      ];
-      files = [
-        {
-          file = "/etc/ssh/ssh_host_ed25519_key";
-          mode = "0600";
-        }
-        "/etc/ssh/ssh_host_ed25519_key.pub"
-        {
-          file = "/etc/ssh/ssh_host_rsa_key";
-          mode = "0600";
-        }
-        "/etc/ssh/ssh_host_rsa_key.pub"
       ];
     };
   };
@@ -274,6 +272,7 @@
     # USER: nwll - dashalev
     dashalev = {
       isNormalUser = true;
+      uid = 1000;
       extraGroups = [
         "wheel"
         "video"
@@ -281,6 +280,7 @@
         "kvm"
         "input"
         "docker"
+        "audio"
       ];
       shell = pkgs.fishMinimal;
       initialPassword = "boobs";
@@ -296,7 +296,7 @@
 
         hyprland = {
           enable = true;
-          extraConfig = ./hyprland.conf;
+          extraConfig = ./hyprland.lua;
         };
 
         wayland = {

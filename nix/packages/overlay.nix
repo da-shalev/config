@@ -25,17 +25,24 @@ let
     };
 
     fetchGithubRelease =
-      url: tag:
+      url: tag: asset:
       let
-        release = builtins.fromJSON (
-          builtins.readFile (builtins.fetchurl "https://api.github.com/repos/${url}/releases/${tag}")
-        );
+        endpoint =
+          if tag == "latest" then
+            "https://api.github.com/repos/${url}/releases/latest"
+          else
+            "https://api.github.com/repos/${url}/releases/tags/${tag}";
+        release = builtins.fromJSON (builtins.readFile (builtins.fetchurl endpoint));
+        matching = builtins.filter (a: a.name == asset) release.assets;
       in
-      builtins.fetchurl (builtins.head release.assets).browser_download_url;
+      builtins.fetchurl (builtins.head matching).browser_download_url;
 
     wrappers = (import sources.wrapper-manager).lib;
     neovim = (import sources.mnw).lib.wrap final { imports = [ ./neovim/module.nix ]; };
     maid = (import sources.nix-maid) final ../modules/maid;
+
+    hyprland =
+      ((import sources.flake-compat) { src = sources.Hyprland; }).defaultNix.packages.${final.system}.hyprland;
   };
 in
 

@@ -8,7 +8,7 @@
   options.rebuild = {
     path = lib.mkOption {
       type = lib.types.path;
-      default = "/config/nix";
+      default = "/config";
     };
 
     owner = lib.mkOption {
@@ -20,11 +20,12 @@
       type = lib.types.package;
       readOnly = true;
     };
+
   };
 
   config = {
     rebuild.notify = pkgs.writeShellApplication {
-      name = "notify";
+      name = "notify-phone";
       runtimeInputs = with pkgs; [ curl ];
       text = ''
         curl -fso /dev/null \
@@ -32,7 +33,7 @@
           -H "Tags: $2" \
           -H "Priority: ''${3:-high}" \
           -d "''${4:-}" \
-          http://localhost:2586/${config.networking.hostName}
+          http://localhost:${toString config.services.ntfy.port}/${config.networking.hostName}
       '';
     };
 
@@ -52,10 +53,8 @@
 
     environment =
       let
-        rebuildPath = config.rebuild.path;
+        rebuildPath = "${config.rebuild.path}/nix";
         hostPath = "hosts/${config.networking.hostName}";
-
-        notify = lib.getExe config.rebuild.notify;
 
         upgrade = pkgs.writeShellApplication {
           name = "upgrade";
@@ -64,18 +63,18 @@
             nixos-rebuild
           ];
           text = ''
-            [ "$TERM" != "linux" ] && notify-send -a "System" "Upgrade started" -u normal
-            ${notify} "Upgrade started" "arrow_up" "default" "Building system configuration"
+            [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Upgrade started" -u normal
+            notify-phone "Upgrade started" "arrow_up" "default" "Building system configuration"
             SECONDS=0
 
             if sudo nixos-rebuild switch --file ${rebuildPath}/${hostPath}; then
               # workaround: https://github.com/viperML/nix-maid/issues/59
               systemctl --user restart maid-activation.service || true
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Upgrade complete" "Finished in $SECONDS seconds" -u normal
-              ${notify} "Upgrade complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Upgrade complete" "Finished in $SECONDS seconds" -u normal
+              notify-phone "Upgrade complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
             else
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Upgrade failed" "Failed after $SECONDS seconds" -u critical
-              ${notify} "Upgrade failed" "x" "high" "Failed after $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Upgrade failed" "Failed after $SECONDS seconds" -u critical
+              notify-phone "Upgrade failed" "x" "high" "Failed after $SECONDS seconds"
             fi
           '';
         };
@@ -84,18 +83,18 @@
           name = "update";
           runtimeInputs = with pkgs; [
             libnotify
-            nix
+            npins
           ];
           text = ''
-            [ "$TERM" != "linux" ] && notify-send -a "System" "Update started" -u normal
-            ${notify} "Update started" "arrow_up" "default" "Fetching latest sources"
+            [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Update started" -u normal
+            notify-phone "Update started" "arrow_up" "default" "Fetching latest sources"
             SECONDS=0
-            if ${lib.getExe pkgs.npins} --lock-file ${rebuildPath}/npins/sources.json update; then
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Update complete" "Finished in $SECONDS seconds" -u normal
-              ${notify} "Update complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
+            if cd ${rebuildPath} && npins update; then
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Update complete" "Finished in $SECONDS seconds" -u normal
+              notify-phone "Update complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
             else
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Update failed" "Failed after $SECONDS seconds" -u critical
-              ${notify} "Update failed" "x" "high" "Failed after $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Update failed" "Failed after $SECONDS seconds" -u critical
+              notify-phone "Update failed" "x" "high" "Failed after $SECONDS seconds"
             fi
           '';
         };
@@ -107,17 +106,17 @@
             nixos-rebuild
           ];
           text = ''
-            [ "$TERM" != "linux" ] && notify-send -a "System" "Bootgrade started" -u normal
-            ${notify} "Bootgrade started" "arrow_up" "default" "Building next boot generation"
+            [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Bootgrade started" -u normal
+            notify-phone "Bootgrade started" "arrow_up" "default" "Building next boot generation"
             SECONDS=0
             if sudo nixos-rebuild boot --file ${rebuildPath}/${hostPath}; then
               # workaround: https://github.com/viperML/nix-maid/issues/59
               systemctl --user restart maid-activation.service || true
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Bootgrade complete" "Finished in $SECONDS seconds" -u normal
-              ${notify} "Bootgrade complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Bootgrade complete" "Finished in $SECONDS seconds" -u normal
+              notify-phone "Bootgrade complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
             else
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Bootgrade failed" "Failed after $SECONDS seconds" -u critical
-              ${notify} "Bootgrade failed" "x" "high" "Failed after $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Bootgrade failed" "Failed after $SECONDS seconds" -u critical
+              notify-phone "Bootgrade failed" "x" "high" "Failed after $SECONDS seconds"
             fi
           '';
         };
@@ -129,15 +128,15 @@
             nix
           ];
           text = ''
-            [ "$TERM" != "linux" ] && notify-send -a "System" "Cleanup started" -u normal
-            ${notify} "Cleanup started" "arrow_up" "default" "Collecting garbage"
+            [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Cleanup started" -u normal
+            notify-phone "Cleanup started" "arrow_up" "default" "Collecting garbage"
             SECONDS=0
             if sudo nix-collect-garbage -d; then
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Cleanup complete" "Finished in $SECONDS seconds" -u normal
-              ${notify} "Cleanup complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Cleanup complete" "Finished in $SECONDS seconds" -u normal
+              notify-phone "Cleanup complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
             else
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Cleanup failed" "Failed after $SECONDS seconds" -u critical
-              ${notify} "Cleanup failed" "x" "high" "Failed after $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Cleanup failed" "Failed after $SECONDS seconds" -u critical
+              notify-phone "Cleanup failed" "x" "high" "Failed after $SECONDS seconds"
             fi
           '';
         };
@@ -149,21 +148,22 @@
             nix
           ];
           text = ''
-            [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization started" -u normal
-            ${notify} "Optimization started" "arrow_up" "default" "Deduplicating nix store"
+            [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Optimization started" -u normal
+            notify-phone "Optimization started" "arrow_up" "default" "Deduplicating nix store"
             SECONDS=0
             if nix store optimise; then
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization complete" "Finished in $SECONDS seconds" -u normal
-              ${notify} "Optimization complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Optimization complete" "Finished in $SECONDS seconds" -u normal
+              notify-phone "Optimization complete" "white_check_mark" "default" "Finished in $SECONDS seconds"
             else
-              [ "$TERM" != "linux" ] && notify-send -a "System" "Optimization failed" "Failed after $SECONDS seconds" -u critical
-              ${notify} "Optimization failed" "x" "high" "Failed after $SECONDS seconds"
+              [ -n "''${WAYLAND_DISPLAY:-}" ] && notify-send -a "System" "Optimization failed" "Failed after $SECONDS seconds" -u critical
+              notify-phone "Optimization failed" "x" "high" "Failed after $SECONDS seconds"
             fi
           '';
         };
       in
       {
         systemPackages = [
+          config.rebuild.notify
           upgrade
           update
           bootgrade

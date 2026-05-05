@@ -47,11 +47,11 @@
 
       [critical]
       border-color=fb4934ff
-      sound-file=${./fnott/critical.flac}
+      sound-file=${./sfx/critical.flac}
 
       [normal]
       border-color=b16286FF
-      sound-file=${./fnott/info.flac}
+      sound-file=${./sfx/info.flac}
 
       [low]
       border-color=b16286FF
@@ -116,6 +116,7 @@
       fastfetch
       btop
       htop
+      nvitop
       dysk
       bat
       hyperfine
@@ -123,16 +124,15 @@
       bun
       nodejs
       nimble
+      devenv
 
       ffmpeg
       yt-dlp
       wget
-
       unzip
       p7zip
       zip
       rar
-      unrar
 
       asciiquarium-transparent
       cmatrix
@@ -142,21 +142,14 @@
       # music stuff
       spek
       rmpc
-      (pkgs.makeDesktopItem {
-        name = "rmpc";
-        desktopName = "rmpc";
-        exec = "rmpc";
-        terminal = true;
-        categories = [ "System" ];
-        comment = "TUI client for MPD ";
-        icon = "org.gnome.Music";
-      })
       cava
 
       neovim
       treefmt
       nixfmt
       stylua
+      ruff
+      pyright
       openssl
       gh
       railway
@@ -169,10 +162,14 @@
     ++ lib.optionals config.hyprland.enable [
       # GRAPHICS XDDDDD
       mpv
+      vlc
       nautilus
       foot
       code-cursor
-      claude-code
+      zed-editor
+      nur.repos.jeffguorg.claude-code-bin
+      nur.repos.aster-void.claude-code-usage-monitor
+      opencode
 
       obs-studio
       localsend
@@ -183,6 +180,7 @@
 
       qbittorrent
       pcsx2
+      zrythm
       # nomachine-client
       nicotine-plus
 
@@ -197,8 +195,8 @@
 
       # blender
       prismlauncher
-      tutanota-desktop
       postman
+      azahar
     ];
 
   hyprland = {
@@ -215,8 +213,8 @@
       hypridle
     ];
 
-    config = ./hyprland.conf;
     idleConfig = ./hypridle.conf;
+    config = ./hyprland.lua;
   };
 
   tmux = {
@@ -257,4 +255,5 @@
     ];
     settings = builtins.fromJSON (builtins.readFile ./vicinae/settings.json);
   };
+
 }

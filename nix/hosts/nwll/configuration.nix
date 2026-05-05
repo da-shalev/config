@@ -1,5 +1,6 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.ghostty.terminfo ];
   security.sudo.wheelNeedsPassword = false;
   networking.firewall.enable = false;
   services.flatpak.enable = true;
@@ -27,7 +28,6 @@
 
   virtualisation.docker.enable = true;
   services = {
-    # gnome.gnome-keyring.enable = true;
     # mongodb.enable = true;
     gvfs.enable = true;
     fstrim.enable = true;
@@ -38,6 +38,18 @@
     speechd.enable = lib.mkForce false;
   };
 
-  time.timeZone = "Canada/Eastern";
+  time.timeZone = (builtins.fromJSON (builtins.readFile ./user.json)).timezone;
+  nix.settings = {
+    sandbox = "relaxed";
+    extra-sandbox-paths = [
+      "/dev/nvidia0"
+      "/dev/nvidiactl"
+      "/dev/nvidia-modeset"
+      "/dev/nvidia-uvm"
+      "/dev/nvidia-uvm-tools"
+      "/run/opengl-driver"
+    ];
+  };
+
   system.stateVersion = "26.05";
 }

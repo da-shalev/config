@@ -11,6 +11,17 @@
       };
 
       wireplumber.extraConfig."zz-device-profiles" = {
+        "monitor.bluez.rules" = [
+          {
+            matches = [ { "device.description" = "AirPods Pro"; } ];
+            actions = {
+              update-props = {
+                "device.profile" = "a2dp-sink";
+                "bluez5.auto-connect" = [ "a2dp_sink" ];
+              };
+            };
+          }
+        ];
         "monitor.alsa.rules" = [
           {
             matches = [ { "device.name" = "alsa_card.pci-0000_01_00.1"; } ];

@@ -66,12 +66,13 @@
           tree-sitter-vimdoc
           tree-sitter-go
           tree-sitter-yaml
+          tree-sitter-kotlin
+          tree-sitter-proto
         ]
       ))
 
       lazydev-nvim
       nvim-lspconfig
-      nvim-ts-autotag
 
       ts-comments-nvim
 
@@ -106,7 +107,11 @@
     git
     fzf
 
+    kotlin-language-server
     pyright
+    ruff
+    protobuf-language-server
+    (python3.withPackages (ps: [ ps.numpy ]))
   ];
 
   aliases = [

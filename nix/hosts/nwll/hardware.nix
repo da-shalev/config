@@ -56,7 +56,7 @@
   services = {
     xserver.videoDrivers = [ "nvidia" ];
     scx = {
-      package = pkgs.stable.scx.rustscheds;
+      package = pkgs.scx.rustscheds;
       enable = true;
       scheduler = "scx_lavd";
     };
@@ -65,11 +65,12 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware = {
-    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     bluetooth.enable = true;
 
     graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [ nvidia-vaapi-driver ];
       extraPackages32 = with pkgs; [ nvidia-vaapi-driver ];
     };

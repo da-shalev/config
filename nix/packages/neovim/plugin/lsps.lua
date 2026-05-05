@@ -16,6 +16,7 @@ conform.setup({
     mdx = { 'prettier' },
     astro = { 'prettier' },
     css = { 'prettier' },
+    python = { 'ruff_format' },
   },
   default_format_opts = {
     lsp_format = 'fallback',
@@ -36,10 +37,12 @@ vim.lsp.enable({
   'tailwindcss',
   'cssls',
   'ts_ls',
+  'kotlin_language_server',
   'rust_analyzer',
   'zls',
   'yamlls',
   'eslint',
+  'pbls',
 })
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()

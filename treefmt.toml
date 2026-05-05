@@ -5,3 +5,15 @@ includes = ["nix/**/*.nix"]
 [formatter.lua]
 command = "stylua"
 includes = ["nix/**/*.lua"]
+
+[formatter.python]
+command = "ruff"
+options = ["format"]
+includes = ["**/*.py"]
+excludes = ["**/_generated/**"]
+
+[formatter.python-lint]
+command = "ruff"
+options = ["check", "--fix"]
+includes = ["**/*.py"]
+excludes = ["**/_generated/**"]

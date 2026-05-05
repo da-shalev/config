@@ -98,6 +98,8 @@
       };
     };
 
+    systemd.globalEnvironment = config.shell.xdg_variables;
+
     file.xdg_config = {
       "user-dirs.dirs".text = ''
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''${k}="${v}"'') config.user_dirs)}

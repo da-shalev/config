@@ -47,7 +47,6 @@ vim.opt.tabstop = 2
 vim.g.netrw_list_hide = '.DS_Store'
 vim.g.netrw_sort_by = 'name'
 vim.g.netrw_sort_sequence = '[/]$,*'
-vim.g.netrw_sort_direction = 'reverse'
 
 vim.g.is_tty = os.getenv('TERM') == 'linux'
 vim.opt.termguicolors = not vim.g.is_tty
