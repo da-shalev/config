@@ -84,7 +84,7 @@
     # non overridable xdg dirs
     shell = {
       xdg_variables = {
-        XDG_DATA_HOME = "$HOME/.local/share";
+        XDG_DATA_HOME = "$HOME/media/share";
         XDG_STATE_HOME = "$HOME/.local/state";
         XDG_CONFIG_HOME = "$HOME/.config";
         XDG_CACHE_HOME = "$HOME/.cache";
@@ -101,6 +101,13 @@
     systemd.globalEnvironment = config.shell.xdg_variables;
 
     file.xdg_config = {
+      "environment.d/10-xdg.conf".text = ''
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (k: v: "${k}=${toString v}") (
+            config.shell.xdg_variables // config.shell.variables
+          )
+        )}
+      '';
       "user-dirs.dirs".text = ''
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''${k}="${v}"'') config.user_dirs)}
       '';

@@ -1,9 +1,9 @@
 excluded_dirs = [".direnv", "_games_", "_stale_", "node_modules"]
 
 [[search_dirs]]
-path = "/config"
+path = "/nix/config"
 depth = 1
 
 [[search_dirs]]
-path = "$XDG_PUBLICSHARE_DIR"
+path = "$XDG_PROJECTS_DIR"
 depth = 10

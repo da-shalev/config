@@ -3,7 +3,7 @@
   environment.systemPackages = [ pkgs.ghostty.terminfo ];
   security.sudo.wheelNeedsPassword = false;
   networking.firewall.enable = false;
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
 
   programs = {
     nix-ld.enable = true;
@@ -26,7 +26,7 @@
     command-not-found.enable = false;
   };
 
-  virtualisation.docker.enable = true;
+  # virtualisation.docker.enable = false;
   services = {
     # mongodb.enable = true;
     gvfs.enable = true;
@@ -39,17 +39,17 @@
   };
 
   time.timeZone = (builtins.fromJSON (builtins.readFile ./user.json)).timezone;
-  nix.settings = {
-    sandbox = "relaxed";
-    extra-sandbox-paths = [
-      "/dev/nvidia0"
-      "/dev/nvidiactl"
-      "/dev/nvidia-modeset"
-      "/dev/nvidia-uvm"
-      "/dev/nvidia-uvm-tools"
-      "/run/opengl-driver"
-    ];
-  };
+  # nix.settings = {
+  #   sandbox = "relaxed";
+  #   extra-sandbox-paths = [
+  #     "/dev/nvidia0"
+  #     "/dev/nvidiactl"
+  #     "/dev/nvidia-modeset"
+  #     "/dev/nvidia-uvm"
+  #     "/dev/nvidia-uvm-tools"
+  #     "/run/opengl-driver"
+  #   ];
+  # };
 
   system.stateVersion = "26.05";
 }

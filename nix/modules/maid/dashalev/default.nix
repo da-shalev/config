@@ -27,7 +27,8 @@
     XDG_VIDEOS_DIR = lib.mkDefault "$HOME/media/vid";
     XDG_PICTURES_DIR = lib.mkDefault "$HOME/media/pix";
     XDG_DOWNLOAD_DIR = lib.mkDefault "$HOME/media/dow";
-    XDG_PUBLICSHARE_DIR = lib.mkDefault "$HOME/media/projects";
+    XDG_PUBLICSHARE_DIR = lib.mkDefault "$HOME/media/pub";
+    XDG_PROJECTS_DIR = lib.mkDefault "$HOME/media/projects";
 
     XDG_DESKTOP_DIR = lib.mkDefault "$HOME/";
     XDG_TEMPLATES_DIR = lib.mkDefault "$HOME/";
@@ -93,7 +94,12 @@
     with pkgs;
     [
       lsd
+
       tmux-sessionizer
+      nur.repos.jeffguorg.claude-code-bin
+      nur.repos.aster-void.claude-code-usage-monitor
+      opencode
+
       pulsemixer
       bluetuith
 
@@ -142,6 +148,23 @@
       # music stuff
       spek
       rmpc
+      (lib.hiPrio (
+        pkgs.makeDesktopItem {
+          name = "rmpc";
+          desktopName = "rmpc";
+          exec = "${lib.getExe pkgs.xdg-terminal-exec} ${lib.getExe pkgs.rmpc}";
+          terminal = false;
+          categories = [
+            "AudioVideo"
+            "Audio"
+            "Player"
+            "Music"
+            "ConsoleOnly"
+          ];
+          comment = "Rusty Music Player Client";
+          icon = "multimedia-player";
+        }
+      ))
       cava
 
       neovim
@@ -162,41 +185,29 @@
     ++ lib.optionals config.hyprland.enable [
       # GRAPHICS XDDDDD
       mpv
-      vlc
       nautilus
       foot
       code-cursor
       zed-editor
-      nur.repos.jeffguorg.claude-code-bin
-      nur.repos.aster-void.claude-code-usage-monitor
-      opencode
+      nur.repos.forkprince.helium-nightly
 
       obs-studio
       localsend
-      stable.beets
+      # stable.beets
       signal-desktop
       telegram-desktop
       vulkan-hdr-layer-kwin6
 
       qbittorrent
-      pcsx2
-      zrythm
-      # nomachine-client
       nicotine-plus
-
-      (wrappers.wrapWith pkgs {
-        basePackage = nur.repos.forkprince.helium-nightly;
-        prependFlags = [
-          # FIX: broken blacks in chrome for now
-          "--disable-features=WaylandWpColorManagerV1"
-        ];
-      })
       firefox
+      faugus-launcher
 
+      dolphin-emu
       # blender
-      prismlauncher
-      postman
-      azahar
+      # prismlauncher
+      # postman
+      # azahar
     ];
 
   hyprland = {
