@@ -74,6 +74,22 @@ let
       lib.filterAttrs (n: _: cfg.dirs.${n} != null) userDirs
     ))
     // cfg.dirs.extra_config;
+
+  toList = v: if lib.isList v then v else [ v ];
+
+  terminals = toList cfg.defaults.terminal;
+
+  mimeAssocs =
+    lib.optionalAttrs (terminals != [ ]) {
+      "x-scheme-handler/terminal" = terminals;
+    }
+    // cfg.defaults.mime;
+
+  renderMime =
+    assocs:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (k: v: "${k}=${lib.concatMapStringsSep ";" (x: x) (toList v)};") assocs
+    );
 in
 {
   options.xdg = {
@@ -104,6 +120,28 @@ in
         inherit (spec) description;
       }
     ) userDirs;
+
+    defaults = {
+      terminal = lib.mkOption {
+        type = with lib.types; either str (listOf str);
+        default = [ ];
+        description = ''
+          Preferred terminal emulator(s) as `.desktop` file names.
+          First entry is primary; later entries are fallbacks.
+          Populates `xdg-terminals.list` (xdg-terminal-exec spec) and
+          the `x-scheme-handler/terminal` association in `mimeapps.list`.
+        '';
+      };
+
+      mime = lib.mkOption {
+        type = with lib.types; attrsOf (either str (listOf str));
+        default = { };
+        description = ''
+          MIME type → `.desktop` file associations written to
+          `mimeapps.list` under `[Default Applications]`.
+        '';
+      };
+    };
   };
 
   config = lib.mkMerge [
@@ -125,6 +163,17 @@ in
       systemd.tmpfiles.dynamicRules = lib.mapAttrsToList (
         _: v: "d ${lib.replaceStrings [ "$HOME" ] [ "{{home}}" ] v} 0755 {{user}} {{group}} - -"
       ) resolvedUser;
+    })
+
+    (lib.mkIf (terminals != [ ]) {
+      file.xdg_config."xdg-terminals.list".text = lib.concatLines terminals;
+    })
+
+    (lib.mkIf (mimeAssocs != { }) {
+      file.xdg_config."mimeapps.list".text = ''
+        [Default Applications]
+        ${renderMime mimeAssocs}
+      '';
     })
   ];
 }

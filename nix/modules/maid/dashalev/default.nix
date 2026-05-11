@@ -22,7 +22,6 @@
   };
 
   xdg = {
-    home.data = "$HOME/media/share";
     dirs = {
       enable = true;
       documents = "$HOME/media/dox";
@@ -35,6 +34,49 @@
       desktop = "$HOME";
       templates = "$HOME";
     };
+
+    defaults =
+      let
+        browser = "helium.desktop";
+        image = "imv.desktop";
+        video = "mpv.desktop";
+      in
+      {
+        terminal = "footclient.desktop";
+        mime = {
+          "x-scheme-handler/http" = browser;
+          "x-scheme-handler/https" = browser;
+          "x-scheme-handler/chrome" = browser;
+          "text/html" = browser;
+          "application/x-extension-htm" = browser;
+          "application/x-extension-html" = browser;
+          "application/x-extension-shtml" = browser;
+          "application/xhtml+xml" = browser;
+          "application/x-extension-xhtml" = browser;
+          "application/x-extension-xht" = browser;
+          "x-scheme-handler/sgnl" = "signal.desktop";
+          "x-scheme-handler/signalcaptcha" = "signal.desktop";
+          "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+          "image/png" = image;
+          "image/jpeg" = image;
+          "image/gif" = image;
+          "image/bmp" = image;
+          "image/tiff" = image;
+          "image/webp" = image;
+          "image/x-icon" = image;
+          "image/svg+xml" = image;
+          "video/mp4" = video;
+          "video/x-msvideo" = video;
+          "video/quicktime" = video;
+          "video/x-matroska" = video;
+          "video/webm" = video;
+          "video/ogg" = video;
+          "video/mpeg" = video;
+          "video/x-flv" = video;
+          "video/3gpp" = video;
+          "video/x-ms-wmv" = video;
+        };
+      };
   };
 
   dirs = [ "{{xdg_state_home}}/bash" ];
@@ -46,7 +88,6 @@
     "mpd/mpd.conf".source = ./mpd.conf;
     "rmpc/config.ron".source = ./rmpc/config.ron;
     "rmpc/themes".source = ./rmpc/themes;
-    "mimeapps.list".source = ./mimeapps.list;
     "fnott/fnott.ini".text = ''
       ${builtins.readFile ./fnott/fnott.ini}
       play-sound=${lib.getExe' pkgs.pipewire "pw-play"} ''${filename}
@@ -149,8 +190,8 @@
         pkgs.makeDesktopItem {
           name = "rmpc";
           desktopName = "rmpc";
-          exec = "${lib.getExe pkgs.xdg-terminal-exec} ${lib.getExe pkgs.rmpc}";
-          terminal = false;
+          exec = lib.getExe pkgs.rmpc;
+          terminal = true;
           categories = [
             "AudioVideo"
             "Audio"

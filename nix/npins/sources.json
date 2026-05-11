@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": true,
-      "revision": "af923e30d1d24f1f4a4f5cb8308065173c1d9539",
+      "revision": "5e441cae538c9396f2ee30338419bec12969608c",
       "url": null,
-      "hash": "sha256-ZfsIYDDOjeAU8MxMyUitBAZgCgYAm1T8rTGbe8ujC/I="
+      "hash": "sha256-A4YUxIZ/w2KZOiIiI0xVPEoXexGei+R0Va6B+92zW6o="
     },
     "NUR": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e93000e74f19c6975a696653dbd56256385d4457",
-      "url": "https://github.com/nix-community/NUR/archive/e93000e74f19c6975a696653dbd56256385d4457.tar.gz",
-      "hash": "sha256-xRuYtFe7JS7RzVqAvwC/Sl8AR2A6UdNVnPQlkzgTeAo="
+      "revision": "ead88ef675170899f3acb603ef28a7437b1ae79c",
+      "url": "https://github.com/nix-community/NUR/archive/ead88ef675170899f3acb603ef28a7437b1ae79c.tar.gz",
+      "hash": "sha256-AsyNPk5PbeVDg5WAVGzxXp9ncW8PLy1R/kjlf4Owdo8="
     },
     "disko": {
       "type": "Git",
@@ -103,9 +103,9 @@
       },
       "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5",
-      "url": "https://github.com/NixOS/nixpkgs/archive/0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5.tar.gz",
-      "hash": "sha256-q/nkKLDtHIyLjZpKhWk3cSK5IYsFqtMd6UtXF3ddjgA="
+      "revision": "8fd9daa3db09ced9700431c5b7ad0e8ba199b575",
+      "url": "https://github.com/NixOS/nixpkgs/archive/8fd9daa3db09ced9700431c5b7ad0e8ba199b575.tar.gz",
+      "hash": "sha256-Ti+ZBvW6yrWWAg2szExVTwCd4qOJ3KlVr1tFHfyfi8Q="
     },
     "preservation": {
       "type": "Git",
