@@ -7,11 +7,6 @@
 {
   options = {
     shell = {
-      package = lib.mkOption {
-        type = lib.types.package;
-        description = "The default user shell.";
-      };
-
       color = lib.mkOption {
         type = lib.types.nonEmptyStr;
       };
@@ -20,24 +15,12 @@
         type = lib.types.nonEmptyStr;
       };
 
-      # NOTE: sources env and ensures important dirs exist, only runs on login
       source_env = lib.mkOption {
         type = lib.types.package;
         default = pkgs.writeShellScriptBin "source-env" ''
           ${lib.concatStringsSep "\n" (
-            map (path: "mkdir -p ${builtins.toString path}") (lib.attrValues config.user_dirs)
+            lib.mapAttrsToList (name: value: ''export ${name}="${builtins.toString value}"'') config.variables
           )}
-          ${lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (
-              name: value: ''export ${name}="${builtins.toString value}"''
-            ) config.shell.xdg_variables
-          )}
-          ${lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (
-              name: value: ''export ${name}="${builtins.toString value}"''
-            ) config.shell.variables
-          )}
-          ${lib.concatStringsSep "\n" (map (path: "mkdir -p ${builtins.toString path}") config.dirs)}
         '';
       };
 
@@ -47,18 +30,6 @@
         description = "List of paths to prepend to PATH";
       };
 
-      xdg_variables = lib.mkOption {
-        type = with lib.types; attrsOf anything;
-        default = { };
-        description = "The xdg variables for the user.";
-      };
-
-      variables = lib.mkOption {
-        type = with lib.types; attrsOf anything;
-        default = { };
-        description = "The session variables for the user.";
-      };
-
       aliases = lib.mkOption {
         type = with lib.types; attrsOf (with lib.types; str);
         default = { };
@@ -66,10 +37,10 @@
       };
     };
 
-    user_dirs = lib.mkOption {
-      type = with lib.types; attrsOf (with lib.types; str);
+    variables = lib.mkOption {
+      type = with lib.types; attrsOf anything;
       default = { };
-      description = "User directory definitions.";
+      description = "Per-user session environment variables.";
     };
 
     dirs = lib.mkOption {
@@ -81,39 +52,13 @@
 
   config = {
     packages = [ config.shell.source_env ];
-    # non overridable xdg dirs
-    shell = {
-      xdg_variables = {
-        XDG_DATA_HOME = "$HOME/media/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_CACHE_HOME = "$HOME/.cache";
-      }
-      // config.user_dirs;
 
-      variables = {
-        SHELL_COLOR = "${config.shell.color}";
-        SHELL_ICON = "${config.shell.icon}";
-        PATH = lib.concatStringsSep ":" (config.shell.paths ++ [ "$PATH" ]);
-      };
+    variables = {
+      SHELL_COLOR = "${config.shell.color}";
+      SHELL_ICON = "${config.shell.icon}";
+      PATH = lib.concatStringsSep ":" (config.shell.paths ++ [ "$PATH" ]);
     };
 
-    systemd.globalEnvironment = config.shell.xdg_variables;
-
-    file.xdg_config = {
-      "environment.d/10-xdg.conf".text = ''
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (k: v: "${k}=${toString v}") (
-            config.shell.xdg_variables // config.shell.variables
-          )
-        )}
-      '';
-      "user-dirs.dirs".text = ''
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''${k}="${v}"'') config.user_dirs)}
-      '';
-      "user-dirs.conf".text = ''
-        enabled=False
-      '';
-    };
+    systemd.tmpfiles.dynamicRules = map (p: "d ${p} 0755 {{user}} {{group}} - -") config.dirs;
   };
 }

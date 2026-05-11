@@ -1,16 +1,10 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
-  imports = [
-    ../../modules/nixos/fonts.nix
-    ../../modules/nixos/audio.nix
-    ../../modules/nixos/disable-sleep.nix
-    ../../modules/nixos/ntfy.nix
-  ];
-
   programs = {
     steam = {
       enable = true;
@@ -98,7 +92,7 @@
 
     mullvad-vpn = {
       enable = true;
-      package = pkgs.stable.mullvad-vpn;
+      package = pkgs.stable.mullvad;
     };
 
   };
@@ -290,20 +284,39 @@
         imports = [ ../../modules/maid/dashalev ];
 
         shell = {
-          package = pkgs.fishMinimal;
           color = "magenta";
           icon = "🗿";
         };
 
         hyprland = {
           enable = true;
-          extraConfig = ./hyprland.lua;
+          config = lib.mkAfter ./hyprland.lua;
         };
 
         wayland = {
           enable = true;
           cursor_theme.size = 40;
         };
+
+        packages = with pkgs; [
+          zed-editor
+          obs-studio
+          localsend
+          signal-desktop
+          telegram-desktop
+          vulkan-hdr-layer-kwin6
+
+          qbittorrent
+          nicotine-plus
+          firefox
+
+          dolphin-emu
+
+          # blender
+          # prismlauncher
+          # postman
+          # azahar
+        ];
       };
     };
   };

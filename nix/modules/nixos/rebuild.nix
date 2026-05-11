@@ -16,6 +16,8 @@
       default = null;
     };
 
+    bundleConfig = lib.mkEnableOption "copying the flake source into rebuild.path at activation";
+
     notify = lib.mkOption {
       type = lib.types.package;
       readOnly = true;
@@ -23,6 +25,30 @@
   };
 
   config = {
+    system.activationScripts.bundleConfig = lib.mkIf config.rebuild.bundleConfig (
+      let
+        src = lib.fileset.toSource {
+          root = ./../../..;
+          fileset = lib.fileset.unions [
+            (lib.fileset.gitTracked ./../../..)
+            ./../../../.git
+          ];
+        };
+        chownLine = lib.optionalString (config.rebuild.owner != null) ''
+          ${lib.getExe' pkgs.coreutils "chown"} -R ${config.rebuild.owner}:users ${config.rebuild.path}
+        '';
+      in
+      {
+        deps = [ "users" ];
+        text = ''
+          ${lib.getExe' pkgs.coreutils "mkdir"} -p ${config.rebuild.path}
+          ${lib.getExe' pkgs.coreutils "cp"} -rT --no-preserve=ownership ${src} ${config.rebuild.path}
+          ${lib.getExe' pkgs.coreutils "chmod"} -R u+w ${config.rebuild.path}
+          ${chownLine}
+        '';
+      }
+    );
+
     # rebuild.notify = pkgs.writeShellApplication {
     #   name = "notify-phone";
     #   runtimeInputs = with pkgs; [ curl ];
@@ -161,8 +187,20 @@
       {
         systemPackages = [
           # config.rebuild.notify
-          upgrade
           update
+
+          (pkgs.makeDesktopItem {
+            name = "system.update";
+            desktopName = "Update";
+            exec = "${lib.getExe' pkgs.systemd "systemd-run"} --user ${lib.getExe update}";
+            terminal = false;
+            categories = [ "System" ];
+            comment = "Fetch latest sources";
+            icon = "view-refresh-symbolic";
+          })
+        ]
+        ++ lib.optionals (!config.rebuild.bundleConfig) [
+          upgrade
           bootgrade
           cleanup
           optimise
@@ -175,16 +213,6 @@
             categories = [ "System" ];
             comment = "Build latest system";
             icon = "software-update-available-symbolic";
-          })
-
-          (pkgs.makeDesktopItem {
-            name = "system.update";
-            desktopName = "Update";
-            exec = "${lib.getExe' pkgs.systemd "systemd-run"} --user ${lib.getExe update}";
-            terminal = false;
-            categories = [ "System" ];
-            comment = "Fetch latest sources";
-            icon = "view-refresh-symbolic";
           })
 
           (pkgs.makeDesktopItem {

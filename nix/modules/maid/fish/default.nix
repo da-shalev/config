@@ -61,10 +61,6 @@
       ))
       // {
         "fish/config.fish".text = ''
-          status --is-login; and begin
-            source "${lib.getExe config.shell.source_env}"
-          end
-
           status is-interactive; and begin
             ${builtins.readFile config.fish.interactive}
             ${fishAliases}

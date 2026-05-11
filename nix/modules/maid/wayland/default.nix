@@ -69,44 +69,48 @@
       xdg_config = {
         "gtk-3.0/settings.ini".text =
           let
-            settings = lib.filter (s: s != "") [
+            settings = [
               "[Settings]"
               (lib.optionalString (
-                config.wayland.cursor_theme.name != ""
+                config.wayland.cursor_theme.package != null
               ) "gtk-cursor-theme-name=${config.wayland.cursor_theme.name}")
-              (lib.optionalString true "gtk-cursor-theme-size=${toString config.wayland.cursor_theme.size}")
+              (lib.optionalString (
+                config.wayland.cursor_theme.package != null
+              ) "gtk-cursor-theme-size=${toString config.wayland.cursor_theme.size}")
               (lib.optionalString (
                 config.wayland.icon_theme.package != null
               ) "gtk-icon-theme-name=${config.wayland.icon_theme.name}")
               (lib.optionalString (
-                config.wayland.theme.name != null || config.wayland.theme.name == ""
+                config.wayland.theme.package != null
               ) "gtk-theme-name=${config.wayland.theme.name}")
               "gtk-recent-files-enabled=false"
             ];
           in
-          lib.concatStringsSep "\n" settings;
+          lib.concatStringsSep "\n" (lib.filter (s: s != "") settings);
         "gtk-4.0/settings.ini".text =
           let
-            settings = lib.filter (s: s != "") [
+            settings = [
               "[Settings]"
               (lib.optionalString (
-                config.wayland.cursor_theme.name != ""
+                config.wayland.cursor_theme.package != null
               ) "gtk-cursor-theme-name=${config.wayland.cursor_theme.name}")
-              (lib.optionalString true "gtk-cursor-theme-size=${toString config.wayland.cursor_theme.size}")
+              (lib.optionalString (
+                config.wayland.cursor_theme.package != null
+              ) "gtk-cursor-theme-size=${toString config.wayland.cursor_theme.size}")
               (lib.optionalString (
                 config.wayland.icon_theme.package != null
               ) "gtk-icon-theme-name=${config.wayland.icon_theme.name}")
               (lib.optionalString (
-                config.wayland.theme.name != null || config.wayland.theme.name == ""
+                config.wayland.theme.package != null
               ) "gtk-theme-name=${config.wayland.theme.name}")
               "gtk-recent-files-enabled=false"
             ];
           in
-          lib.concatStringsSep "\n" settings;
+          lib.concatStringsSep "\n" (lib.filter (s: s != "") settings);
       };
     };
 
-    shell.variables = {
+    variables = {
       MOZ_ENABLE_WAYLAND = 1;
       PROTON_ENABLE_WAYLAND = 1;
       DXVK_HDR = 1;
@@ -117,7 +121,7 @@
     // lib.optionalAttrs (config.wayland.cursor_theme.package != null) {
       XCURSOR_THEME = config.wayland.cursor_theme.name;
       XCURSOR_SIZE = "${toString config.wayland.cursor_theme.size}";
-      XCURSOR_PATH = "$XDG_DATA_HOME/icons";
+      XCURSOR_PATH = "${config.xdg.home.data}/icons";
     };
 
     dconf.settings = lib.mkMerge [

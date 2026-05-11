@@ -21,18 +21,23 @@
     };
   };
 
-  user_dirs = {
-    XDG_DOCUMENTS_DIR = lib.mkDefault "$HOME/media/dox";
-    XDG_MUSIC_DIR = lib.mkDefault "$HOME/media/mus";
-    XDG_VIDEOS_DIR = lib.mkDefault "$HOME/media/vid";
-    XDG_PICTURES_DIR = lib.mkDefault "$HOME/media/pix";
-    XDG_DOWNLOAD_DIR = lib.mkDefault "$HOME/media/dow";
-    XDG_PUBLICSHARE_DIR = lib.mkDefault "$HOME/media/pub";
-    XDG_PROJECTS_DIR = lib.mkDefault "$HOME/media/projects";
-
-    XDG_DESKTOP_DIR = lib.mkDefault "$HOME/";
-    XDG_TEMPLATES_DIR = lib.mkDefault "$HOME/";
+  xdg = {
+    home.data = "$HOME/media/share";
+    dirs = {
+      enable = true;
+      documents = "$HOME/media/dox";
+      music = "$HOME/media/mus";
+      videos = "$HOME/media/vid";
+      pictures = "$HOME/media/pix";
+      download = "$HOME/media/dow";
+      public_share = "$HOME/media/pub";
+      projects = "$HOME/media/projects";
+      desktop = "$HOME";
+      templates = "$HOME";
+    };
   };
+
+  dirs = [ "{{xdg_state_home}}/bash" ];
 
   # XDG compliance
   file.xdg_config = {
@@ -62,32 +67,25 @@
     "tms/config.toml".source = ./tms.toml;
     "mpv/mpv.conf".source = ./mpv.conf;
     "fd/ignore".source = ./fd/ignore;
-    # "looking-glass/client.ini".source = ./looking-glass/client.ini;
+    "hypr/hypridle.conf".source = ./hypridle.conf;
   };
 
-  dirs = [ "$XDG_STATE_HOME/bash" ];
-  shell = {
-    package = lib.mkDefault pkgs.fish;
-    aliases = {
-      s = "${lib.getExe pkgs.lsd} -lA";
-    };
+  shell.aliases = {
+    s = "${lib.getExe pkgs.lsd} -lA";
+  };
 
-    variables = {
-      # JAVA_HOME = "${lib.getExe' pkgs.jdk21 "java"}";
-      JAVA_HOME = "${pkgs.jdk21}";
-      JDK21 = pkgs.jdk21;
-      JDK17 = pkgs.jdk17;
-      MOZ_CRASHREPORTER_DISABLE = "1";
-      NIXPKGS_ALLOW_UNFREE = "1";
-      EDITOR = "nvim";
-      QT_SCALE_FACTOR = 1.5;
-      FZF_DEFAULT_OPTS = ''
-        --height=100%
-        --layout=reverse
-        --bind 'ctrl-o:execute(test -f {1} && xdg-open {1})+accept'
-        --bind 'ctrl-e:execute(nvim {1})+abort'
-      '';
-    };
+  variables = {
+    JAVA_HOME = "${pkgs.jdk21}";
+    MOZ_CRASHREPORTER_DISABLE = "1";
+    NIXPKGS_ALLOW_UNFREE = "1";
+    EDITOR = "nvim";
+    QT_SCALE_FACTOR = 1.5;
+    FZF_DEFAULT_OPTS = ''
+      --height=100%
+      --layout=reverse
+      --bind 'ctrl-o:execute(test -f {1} && xdg-open {1})+accept'
+      --bind 'ctrl-e:execute(nvim {1})+abort'
+    '';
   };
 
   packages =
@@ -97,7 +95,7 @@
 
       tmux-sessionizer
       nur.repos.jeffguorg.claude-code-bin
-      nur.repos.aster-void.claude-code-usage-monitor
+      # nur.repos.aster-void.claude-code-usage-monitor
       opencode
 
       pulsemixer
@@ -146,7 +144,6 @@
       sl
 
       # music stuff
-      spek
       rmpc
       (lib.hiPrio (
         pkgs.makeDesktopItem {
@@ -172,7 +169,6 @@
       nixfmt
       stylua
       ruff
-      pyright
       openssl
       gh
       railway
@@ -183,31 +179,9 @@
       fzf-search
     ]
     ++ lib.optionals config.hyprland.enable [
-      # GRAPHICS XDDDDD
       mpv
       nautilus
-      foot
-      code-cursor
-      zed-editor
       nur.repos.forkprince.helium-nightly
-
-      obs-studio
-      localsend
-      # stable.beets
-      signal-desktop
-      telegram-desktop
-      vulkan-hdr-layer-kwin6
-
-      qbittorrent
-      nicotine-plus
-      firefox
-      faugus-launcher
-
-      dolphin-emu
-      # blender
-      # prismlauncher
-      # postman
-      # azahar
     ];
 
   hyprland = {
@@ -224,8 +198,15 @@
       hypridle
     ];
 
-    idleConfig = ./hypridle.conf;
     config = ./hyprland.lua;
+
+    start = [
+      "foot --server --log-no-syslog"
+      "fnott"
+      "mpd"
+      "vicinae server"
+      "hypridle"
+    ];
   };
 
   tmux = {

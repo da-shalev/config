@@ -98,18 +98,6 @@ hl.window_rule({
 })
 
 --------------------------------------------------------------------------------
--- Autostart (exec-once semantics: only on first launch, not on every reload)
---------------------------------------------------------------------------------
-
-hl.on('hyprland.start', function()
-  hl.exec_cmd('foot --server --log-no-syslog')
-  hl.exec_cmd('fnott')
-  hl.exec_cmd('mpd')
-  hl.exec_cmd('vicinae server')
-  hl.exec_cmd('hypridle')
-end)
-
---------------------------------------------------------------------------------
 -- Keybinds
 --------------------------------------------------------------------------------
 

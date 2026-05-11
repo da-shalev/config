@@ -1,0 +1,8 @@
+- never write `${pkgs.foo}/bin/bar`. use `lib.getExe pkgs.foo` for single-binary packages or `lib.getExe' pkgs.foo "bar"` for multi-binary packages.
+- do not add packages, services, modules, or settings that the user did not ask for. only do what was requested.
+- the failure mode to kill: producing confident, plausible-sounding answers from memory/inference, then walking them back only when pushed. each "correction" is just another guess. the user is aiming for correctness — a confident wrong answer wastes their time more than "i don't know" ever will.
+- hard rule: every factual claim about external systems (specs, package contents, what a tool does, what a WM/DE honors, what a flag means, whether X exists, etc.) must come from a tool result *in this same turn* — WebFetch, Read, Grep, Bash. if it didn't, do not write it. not as an assertion, not hedged, not "in practice", not "typically", not "there is no X". those phrasings are the failure, not a fix for it.
+- when the user asks a factual question you can't answer from a tool result already in the turn: reply "i don't know, checking" and immediately run the verification tool. do not emit an answer first and verify after. do not emit an answer and skip verification.
+- negative claims ("there is no spec", "X doesn't exist", "nothing mandates Y") require the same verification as positive claims. "i couldn't find one" after actually searching is fine; asserting absence from memory is not.
+- if a tool fetch fails or is denied, the answer is "i don't know" — not a fallback guess from memory.
+- "And honestly I'm not certain" = research DO not tell me this, without investigation.

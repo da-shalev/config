@@ -41,8 +41,11 @@ let
     neovim = (import sources.mnw).lib.wrap final { imports = [ ./neovim/module.nix ]; };
     maid = (import sources.nix-maid) final ../modules/maid;
 
-    hyprland =
-      ((import sources.flake-compat) { src = sources.Hyprland; }).defaultNix.packages.${final.system}.hyprland;
+    inherit
+      (((import sources.flake-compat) { src = sources.Hyprland; }).defaultNix.packages.${final.system})
+      hyprland
+      xdg-desktop-portal-hyprland
+      ;
   };
 in
 

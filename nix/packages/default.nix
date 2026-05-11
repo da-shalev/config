@@ -5,6 +5,7 @@ in
 import sources.nixpkgs {
   config = {
     allowUnfree = true;
+    nvidia.acceptLicense = true;
   };
 
   overlays = [
