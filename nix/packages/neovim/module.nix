@@ -18,7 +18,7 @@
         sources = lib.fileset.unions [
           ./plugin
           ./after
-          ./ftplugin
+          (lib.fileset.maybeMissing ./ftplugin)
         ];
       in
       {

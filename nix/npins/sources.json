@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": true,
-      "revision": "5e441cae538c9396f2ee30338419bec12969608c",
+      "revision": "a45fc64935e77bdcfdfb1166904db45a813ee4d4",
       "url": null,
-      "hash": "sha256-A4YUxIZ/w2KZOiIiI0xVPEoXexGei+R0Va6B+92zW6o="
+      "hash": "sha256-I082H/RSwyi+UP8rM/vyTt4ykIUIr+kZvPZST1wDcj4="
     },
     "NUR": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "4961a94890b0b614d5ec5e95e186a1ee0973edee",
-      "url": "https://github.com/nix-community/NUR/archive/4961a94890b0b614d5ec5e95e186a1ee0973edee.tar.gz",
-      "hash": "sha256-8Lhdn2AlQROnjcxPvU3rARb57pQz0tzOCJdCHYbgR7I="
+      "revision": "7f2a804a9db589ee0fd8452a4ecfdeb6a9091d3e",
+      "url": "https://github.com/nix-community/NUR/archive/7f2a804a9db589ee0fd8452a4ecfdeb6a9091d3e.tar.gz",
+      "hash": "sha256-32TUBtD7+jDu/yDLdvVXFUZcjykgoGopYM6FjNegi6w="
     },
     "disko": {
       "type": "Git",
@@ -64,9 +64,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "0902144a302ff3b43fca93cd62575a626b3e5226",
-      "url": "https://github.com/Gerg-L/mnw/archive/0902144a302ff3b43fca93cd62575a626b3e5226.tar.gz",
-      "hash": "sha256-WJPAjh5dGgv3U2CNRESYP+5q3g1kx8EWINKDI2RAhec="
+      "revision": "1a3573fc9d2486738fe0b2cacc5cd10dd5f3a445",
+      "url": "https://github.com/Gerg-L/mnw/archive/1a3573fc9d2486738fe0b2cacc5cd10dd5f3a445.tar.gz",
+      "hash": "sha256-n0twkzWexzjsoDycOTvvQNuGEdg62UiNHYcFCduYpKI="
     },
     "nix-maid": {
       "type": "Git",
@@ -90,9 +90,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "549bd84d6279f9852cae6225e372cc67fb91a4c1",
-      "url": "https://github.com/NixOS/nixpkgs/archive/549bd84d6279f9852cae6225e372cc67fb91a4c1.tar.gz",
-      "hash": "sha256-hGdgeU2Nk87RAuZyYjyDjFL6LK7dAZN5RE9+hrDTkDU="
+      "revision": "da5ad661ba4e5ef59ba743f0d112cbc30e474f32",
+      "url": "https://github.com/NixOS/nixpkgs/archive/da5ad661ba4e5ef59ba743f0d112cbc30e474f32.tar.gz",
+      "hash": "sha256-zi7/fsqM/kFdNuED//4WOCUtezGtKKqRNORjMvfwjnA="
     },
     "nixpkgs-stable": {
       "type": "Git",

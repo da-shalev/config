@@ -148,6 +148,18 @@
             fi
           '';
         };
+
+        config-install = pkgs.writeShellApplication {
+          name = "config-install";
+          runtimeInputs = [ pkgs.nixos-install-tools ];
+          text = ''
+            if [ "$#" -lt 1 ]; then
+              echo "usage: config-install <host-path>" >&2
+              exit 1
+            fi
+            sudo nixos-install -f "$1"
+          '';
+        };
       in
       {
         systemPackages = [
@@ -162,6 +174,9 @@
             comment = "Fetch latest sources";
             icon = "view-refresh-symbolic";
           })
+        ]
+        ++ lib.optionals config.rebuild.bundleConfig [
+          config-install
         ]
         ++ lib.optionals (!config.rebuild.bundleConfig) [
           upgrade
