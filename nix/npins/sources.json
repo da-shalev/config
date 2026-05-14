@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ead88ef675170899f3acb603ef28a7437b1ae79c",
-      "url": "https://github.com/nix-community/NUR/archive/ead88ef675170899f3acb603ef28a7437b1ae79c.tar.gz",
-      "hash": "sha256-AsyNPk5PbeVDg5WAVGzxXp9ncW8PLy1R/kjlf4Owdo8="
+      "revision": "4961a94890b0b614d5ec5e95e186a1ee0973edee",
+      "url": "https://github.com/nix-community/NUR/archive/4961a94890b0b614d5ec5e95e186a1ee0973edee.tar.gz",
+      "hash": "sha256-8Lhdn2AlQROnjcxPvU3rARb57pQz0tzOCJdCHYbgR7I="
     },
     "disko": {
       "type": "Git",

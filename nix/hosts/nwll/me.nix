@@ -95,6 +95,13 @@
       package = pkgs.stable.mullvad;
     };
 
+    greetd = {
+      enable = true;
+      settings.default_session = {
+        command = "start-hyprland";
+        user = "dashalev";
+      };
+    };
   };
 
   # power.ups = {
@@ -300,22 +307,21 @@
 
         packages = with pkgs; [
           zed-editor
-          obs-studio
-          localsend
+          (pkgs.wrappers.wrapWith pkgs {
+            basePackage = pkgs.obs-studio;
+            env.LD_LIBRARY_PATH.value = "/run/opengl-driver/lib";
+          })
           signal-desktop
-          telegram-desktop
+          # telegram-desktop
           vulkan-hdr-layer-kwin6
 
           qbittorrent
           nicotine-plus
           firefox
 
-          dolphin-emu
-
           # blender
           # prismlauncher
           # postman
-          # azahar
         ];
       };
     };

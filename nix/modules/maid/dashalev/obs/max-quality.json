@@ -1,0 +1,1 @@
+{"rate_control":"CQVBR","target_quality":10,"bitrate":180000,"max_bitrate":220000,"preset":"p5","tune":"uhq","multipass":"disabled","profile":"main","lookahead":true,"adaptive_quantization":true,"bframe_ref_mode":2,"opts":"lookaheadDepth=20"}

@@ -81,7 +81,6 @@
 
   dirs = [ "{{xdg_state_home}}/bash" ];
 
-  # XDG compliance
   file.xdg_config = {
     "git/ignore".source = ./git/ignore;
     "git/config".source = ./git/config;
@@ -107,6 +106,7 @@
     "lsd/config.yaml".source = ./lsd.yaml;
     "tms/config.toml".source = ./tms.toml;
     "mpv/mpv.conf".source = ./mpv.conf;
+    "obs-studio/basic/profiles/max-quality/recordEncoder.json".source = ./obs/max-quality.json;
     "fd/ignore".source = ./fd/ignore;
     "hypr/hypridle.conf".source = ./hypridle.conf;
   };
@@ -222,7 +222,9 @@
     ++ lib.optionals config.hyprland.enable [
       mpv
       nautilus
+      sushi
       nur.repos.forkprince.helium-nightly
+      localsend
     ];
 
   hyprland = {
@@ -239,13 +241,19 @@
       hypridle
     ];
 
-    config = ./hyprland.lua;
+    config = ./hyprland/main.lua;
+
+    extra_configs = {
+      "binds.lua" = ./hyprland/binds.lua;
+      "master.lua" = ./hyprland/master.lua;
+      "scrolling.lua" = ./hyprland/scrolling.lua;
+    };
 
     start = [
       "foot --server --log-no-syslog"
       "fnott"
       "mpd"
-      "vicinae server"
+      "vicinae server --no-extension-runtime"
       "hypridle"
     ];
   };
@@ -278,7 +286,6 @@
       "applications:helium"
       "applications:org.gnome.Nautilus"
       "applications:rmpc"
-      "applications:tutanota-desktop"
       "applications:signal"
       "applications:system.upgrade"
       "applications:system.bootgrade"
@@ -286,7 +293,35 @@
       "applications:system.cleanup"
       "applications:system.optimise"
     ];
-    settings = builtins.fromJSON (builtins.readFile ./vicinae/settings.json);
+    theme = {
+      dark = "rose-pine";
+      light = "rose-pine-dawn";
+    };
+    settings = {
+      close_on_focus_loss = true;
+      launcher_window = {
+        opacity = 1.0;
+        blur.enabled = false;
+      };
+      providers = {
+        applications.enabled = true;
+        "browser-extension".enabled = false;
+        clipboard.preferences.monitoring = true;
+        core.enabled = false;
+        developer.enabled = false;
+        "manage-shortcuts".enabled = false;
+        power.entrypoints = {
+          hibernate.enabled = false;
+          lock.enabled = false;
+          sleep.enabled = false;
+          "soft-reboot".enabled = false;
+          suspend.enabled = false;
+        };
+        "raycast-compat".enabled = false;
+        shortcuts.enabled = false;
+        theme.enabled = false;
+      };
+    };
   };
 
 }

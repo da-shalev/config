@@ -3,6 +3,7 @@
   console = {
     packages = with pkgs; [ spleen ];
     font = "spleen-16x32";
+    earlySetup = true;
   };
 
   fonts = {

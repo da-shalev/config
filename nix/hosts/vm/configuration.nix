@@ -5,6 +5,7 @@
     cores = 4;
     diskSize = 16384;
     graphics = true;
+    qemu.options = [ "-display gtk,grab-on-hover=on" ];
     forwardPorts = [
       {
         from = "host";
@@ -12,11 +13,6 @@
         guest.port = 22;
       }
     ];
-  };
-
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = true;
   };
 
   preservation.enable = lib.mkForce false;
