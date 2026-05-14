@@ -42,26 +42,21 @@
     files = [
       {
         file = "/etc/ssh/ssh_host_ed25519_key";
-        mode = "0600";
+        how = "symlink";
+        configureParent = true;
       }
-      "/etc/ssh/ssh_host_ed25519_key.pub"
       {
         file = "/etc/ssh/ssh_host_rsa_key";
-        mode = "0600";
+        how = "symlink";
+        configureParent = true;
       }
-      "/etc/ssh/ssh_host_rsa_key.pub"
       {
         file = "/var/lib/systemd/random-seed";
         how = "symlink";
         inInitrd = true;
         configureParent = true;
       }
-      {
-        file = "/etc/machine-id";
-        inInitrd = true;
-        how = "symlink";
-        configureParent = true;
-      }
+      { file = "/etc/machine-id"; inInitrd = true; }
     ];
   };
 
