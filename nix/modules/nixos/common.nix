@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.ghostty.terminfo ];
+  environment.systemPackages = with pkgs; [
+    age
+    ghostty.terminfo
+  ];
   security.sudo.wheelNeedsPassword = false;
   networking.firewall.enable = false;
 

@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": true,
-      "revision": "a45fc64935e77bdcfdfb1166904db45a813ee4d4",
+      "revision": "805f7bf48e46dcab20c0b45844ae36aac354b4bd",
       "url": null,
-      "hash": "sha256-I082H/RSwyi+UP8rM/vyTt4ykIUIr+kZvPZST1wDcj4="
+      "hash": "sha256-nGLKLSbdk9GWtQwwI6YnnW/lnTZc65t98OPwWzewZ44="
     },
     "NUR": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7f2a804a9db589ee0fd8452a4ecfdeb6a9091d3e",
-      "url": "https://github.com/nix-community/NUR/archive/7f2a804a9db589ee0fd8452a4ecfdeb6a9091d3e.tar.gz",
-      "hash": "sha256-32TUBtD7+jDu/yDLdvVXFUZcjykgoGopYM6FjNegi6w="
+      "revision": "0d3cc0888c0e7491694dd0c53eba6d9ad4ba503a",
+      "url": "https://github.com/nix-community/NUR/archive/0d3cc0888c0e7491694dd0c53eba6d9ad4ba503a.tar.gz",
+      "hash": "sha256-JZs4zqS5aZVOvrTzwh8pnH4W5gxKxGy7ACHgPj4l+NM="
     },
     "disko": {
       "type": "Git",

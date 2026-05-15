@@ -160,9 +160,44 @@
             sudo nixos-install -f "$1"
           '';
         };
+
+        ssh-install = pkgs.writeShellApplication {
+          name = "ssh-install";
+          runtimeInputs = [
+            pkgs.age
+            pkgs.coreutils
+            config.programs.ssh.package
+          ];
+          text = ''
+            if [ "$#" -ne 1 ]; then
+              echo "usage: ssh-install <key.age>" >&2
+              exit 1
+            fi
+
+            src="$1"
+            dst="$HOME/.ssh/id_ed25519"
+            pub="$dst.pub"
+            tmp="$(mktemp "$HOME/.ssh/.id_ed25519.XXXXXX")"
+
+            cleanup() {
+              rm -f "$tmp"
+            }
+            trap cleanup EXIT
+
+            mkdir -p "$HOME/.ssh"
+            chmod 700 "$HOME/.ssh"
+
+            age -d "$src" > "$tmp"
+            chmod 600 "$tmp"
+            mv -f "$tmp" "$dst"
+            ssh-keygen -y -f "$dst" > "$pub"
+            trap - EXIT
+          '';
+        };
       in
       {
         systemPackages = [
+          ssh-install
           update
 
           (pkgs.makeDesktopItem {

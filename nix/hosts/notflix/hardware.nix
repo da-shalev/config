@@ -31,7 +31,6 @@
       "split_lock_detect=off"
     ];
 
-    kernel.sysctl."kernel.unprivileged_userns_clone" = 1;
     tmp.cleanOnBoot = true;
   };
 
@@ -42,12 +41,9 @@
     etc.overlay.enable = true;
   };
 
-  networking = {
-    useDHCP = lib.mkDefault true;
-    networkmanager = {
-      enable = true;
-      wifi.powersave = false;
-    };
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
