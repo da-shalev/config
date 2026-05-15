@@ -157,7 +157,7 @@
               echo "usage: config-install <host-path>" >&2
               exit 1
             fi
-            sudo nixos-install -f "$1"
+            sudo nixos-install --no-root-password -f "$1"
           '';
         };
 
@@ -194,10 +194,50 @@
             trap - EXIT
           '';
         };
+
+        ssh-secret = pkgs.writeShellApplication {
+          name = "ssh-secret";
+          runtimeInputs = [
+            pkgs.age
+            pkgs.coreutils
+            config.programs.ssh.package
+          ];
+          text = ''
+            if [ "$#" -ne 1 ]; then
+              echo "usage: ssh-secret <name>" >&2
+              exit 1
+            fi
+
+            name="$1"
+            out="${config.rebuild.path}/secrets/$name.age"
+            tmpdir="$(mktemp -d)"
+
+            if [ -e "$out" ]; then
+              echo "secret already exists: $out" >&2
+              exit 1
+            fi
+
+            cleanup() {
+              rm -rf "$tmpdir"
+            }
+            trap cleanup EXIT
+
+            mkdir -p ${config.rebuild.path}/secrets
+
+            ssh-keygen -t ed25519 -a 100 -f "$tmpdir/id_ed25519" -C "$name"
+            age -p -o "$out" "$tmpdir/id_ed25519"
+
+            echo "created $out"
+            echo
+            echo "public key:"
+            cat "$tmpdir/id_ed25519.pub"
+          '';
+        };
       in
       {
         systemPackages = [
           ssh-install
+          ssh-secret
           update
 
           (pkgs.makeDesktopItem {
